@@ -1,5 +1,6 @@
-package app.server;
+package app.utils;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,8 +17,7 @@ public class ServerProperties {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerProperties.class);
 
-
-    private static final String FILE_NAME = "server.properties";
+    private static final String FILE_NAME = "/conf/server.properties";
 
     private static Properties prop;
 
@@ -26,10 +26,10 @@ public class ServerProperties {
     }
 
     private static void init() {
-        String filePath =getClassPath()+"/conf/server.properties";
+        String filePath =EnvivironmentUtil.getClassPath()+FILE_NAME;
         InputStream ins = null;
         try {
-             ins  = new FileInputStream(filePath);
+            ins  = new FileInputStream(filePath);
             prop = new Properties();
             prop.load(ins);
         } catch (FileNotFoundException e) {
@@ -37,19 +37,10 @@ public class ServerProperties {
         } catch (Exception e) {
             LOGGER.error("init server properties failed", e);
         } finally {
-            if (null != ins) {
-                try {
-                    ins.close();
-                } catch (IOException e) {
-                    LOGGER.error("Close closeable faild: " + ins.getClass(), e);
-                }
-            }
+            IOUtils.closeQuietly(ins);
         }
     }
 
-    public static String getClassPath(){
-        return  Thread.currentThread().getContextClassLoader().getResource("").getPath();
-    }
 
     public static String getProperty(String key) {
         if (null != prop) {
