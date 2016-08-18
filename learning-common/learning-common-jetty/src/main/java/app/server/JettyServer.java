@@ -109,7 +109,7 @@ public class JettyServer {
             long st = System.currentTimeMillis();
             server.start();
             long sp = System.currentTimeMillis() - st;
-            System.out.println("JettyServer started: " + String.format("%.2f sec", sp / 1000D));
+            System.out.println("JettyServer started: " + String.format("%.2f sec", sp / 1000D)+",the port is ==="+port+"");
             server.join();
         }catch (Exception e){
             e.printStackTrace();
