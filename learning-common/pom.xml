@@ -10,10 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>learning-common</artifactId>
+    <name>learning-common</name>
     <packaging>pom</packaging>
     <modules>
         <module>learning-common-jetty</module>
-        <module>learning-zookeeper</module>
+        <module>learning-common-zookeeper</module>
+        <module>learning-common-main</module>
     </modules>
 
 
