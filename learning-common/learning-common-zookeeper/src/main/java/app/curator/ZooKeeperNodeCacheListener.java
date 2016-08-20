@@ -6,10 +6,11 @@ import org.apache.curator.framework.recipes.cache.NodeCacheListener;
 /**
  * Created by lili19289 on 2016/8/19.
  * NodeCache主要用来监听节点本身的变化,当节点的状态发生变更后,会回调NodeCachaListener
+ * 可以继承这个类进行具体操作
  */
 public class ZooKeeperNodeCacheListener implements NodeCacheListener {
 
-    private NodeCache nodeCache;
+    protected NodeCache nodeCache;
 
     public ZooKeeperNodeCacheListener(NodeCache nodeCache){
         this.nodeCache = nodeCache;

@@ -6,7 +6,6 @@ import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.imps.CuratorFrameworkState;
 import org.apache.curator.framework.recipes.cache.NodeCache;
-import org.apache.curator.framework.recipes.cache.NodeCacheListener;
 import org.apache.curator.framework.state.ConnectionState;
 import org.apache.curator.framework.state.ConnectionStateListener;
 import org.apache.curator.retry.ExponentialBackoffRetry;
@@ -18,9 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
 import java.nio.charset.Charset;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by lili19289 on 2016/8/18.
@@ -40,7 +37,7 @@ public class ZooKeeperClient {
     //连接状态监听
     private Set<ZooKeeperClientConnectionStateListener> connectionStateListeners = new ConcurrentHashSet<ZooKeeperClientConnectionStateListener>();
 
-
+    private Map<String,ZooKeeperNodeCacheHandler> nodeCacheHandlerMap = new HashMap<>();
     private CuratorFramework client;
 
     /**
@@ -280,22 +277,14 @@ public class ZooKeeperClient {
         return client;
     }
 
-    public void addNodeCacheListener(String path){
-        final NodeCache nodeCache = new NodeCache(client, path);
-      try{
-            nodeCache.getListenable().addListener(new NodeCacheListener() {
-                public void nodeChanged() throws Exception {
-                    System.out.println("NodeCache changed, data is===== " + new String(nodeCache.getCurrentData().getData()));
-                }
-            });
-            nodeCache.start(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-    }
-
-    public void addNodeCacheListener(String path,Class<? extends NodeCacheListener> listenerClass){
+    /**
+     * node监听，一个监听方法
+     * 该方法是直接实现NodeCacheListener来实现监听
+     * @param path
+     * @param listenerClass
+     */
+    public void addNodeCacheListener(String path,Class<? extends ZooKeeperNodeCacheListener> listenerClass){
         final NodeCache nodeCache = new NodeCache(client, path);
         Class[] paramTypes = {NodeCache.class};
         Object[] params = {nodeCache};
@@ -310,6 +299,27 @@ public class ZooKeeperClient {
             e.printStackTrace();
         }
 
+    }
+    /**
+     * node监听，一个或以上监听方法
+     * 该方法是通过实现NodeCacheListener，然后对自己定义的NodeCahceChangeListener的接口进行调用来实现的监听
+     * @param path
+     * @param listeners
+     */
+    public void addNodeCacheListeners(String path, ZooKeeperNodeCacheHandler.NodeCahceChangeListener...listeners){
+        ZooKeeperNodeCacheHandler nodeCacheListeners = getZooKeeperNodeCacheListeners(path);
+        nodeCacheListeners.addListeners(listeners);
+    }
+
+    private ZooKeeperNodeCacheHandler getZooKeeperNodeCacheListeners(String path){
+        ZooKeeperNodeCacheHandler nodeCacheListeners =nodeCacheHandlerMap.get(path);
+        if(nodeCacheListeners==null){
+            NodeCache nodeCache = new NodeCache(client,path);
+            nodeCacheListeners = new ZooKeeperNodeCacheHandler(path,nodeCache);
+            nodeCacheListeners.startWatch();
+            nodeCacheHandlerMap.put(path,nodeCacheListeners);
+        }
+        return nodeCacheListeners;
     }
 
 
