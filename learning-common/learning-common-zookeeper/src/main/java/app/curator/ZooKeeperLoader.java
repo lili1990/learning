@@ -15,6 +15,7 @@ public class ZooKeeperLoader {
         try {
             zooKeeperClient =  RuntimeContext.getBean(ZooKeeperClient.class);
             zooKeeperClient.addNodeCacheListener("/learning",ZooKeeperNodeCacheListener.class);
+            zooKeeperClient.addPathChildrenListener("/learning",new ZooKeeperPathChildrenCacheListener());
 //            zooKeeperClient.addNodeCacheListener("/learning");
         }catch (Exception e){
             e.printStackTrace();

@@ -15,6 +15,7 @@ import java.util.concurrent.Executors;
 
 /**
  * Created by lili19289 on 2016/8/19.
+ * 监视一个结点的创建、更新、删除，并将结点的数据缓存在本地。
  * NodeCache主要用来监听节点本身的变化,当节点的状态发生变更后,会回调NodeCachaListener
  * 这个类为了解决一个节点有多个监听器的操作
  */

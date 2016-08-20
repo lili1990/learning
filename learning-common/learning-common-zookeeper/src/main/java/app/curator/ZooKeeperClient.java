@@ -6,6 +6,8 @@ import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.imps.CuratorFrameworkState;
 import org.apache.curator.framework.recipes.cache.NodeCache;
+import org.apache.curator.framework.recipes.cache.PathChildrenCache;
+import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 import org.apache.curator.framework.state.ConnectionState;
 import org.apache.curator.framework.state.ConnectionStateListener;
 import org.apache.curator.retry.ExponentialBackoffRetry;
@@ -326,7 +328,25 @@ public class ZooKeeperClient {
 
 
 
+    /**
+     * Path Cache：监视一个路径下1）孩子结点的创建、2）删除，3）以及结点数据的更新。
+     *                  产生的事件会传递给注册的PathChildrenCacheListener。
+     * @param path
+     * @param listener
+     */
+    public void addPathChildrenListener(String path,PathChildrenCacheListener listener){
+        if(!exists(path))mkdirs(path);
+        PathChildrenCache childrenCache = new PathChildrenCache(client, path,true);
+        try {
+            childrenCache.getListenable().addListener(listener);
+            childrenCache.start();
+//            childrenCache.start(PathChildrenCache.StartMode.POST_INITIALIZED_EVENT);
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOG.error("PathChildrenCache listen fail,path = "+path,e);
+        }
 
+    }
 
 
 
