@@ -1,14 +1,13 @@
 package app.curator;
 
 import app.context.RuntimeContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 
 /**
  * Created by lili19289 on 2016/8/19.
  */
 public class ZooKeeperLoader {
-    private static final Logger LOG = LoggerFactory.getLogger(ZooKeeperLoader.class);
+    private static final Logger LOG = Logger.getLogger(ZooKeeperLoader.class);
 
     ZooKeeperClient zooKeeperClient;
     public void init(){

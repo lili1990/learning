@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Created by lili19289 on 2016/8/15.
  */
-public class RunTimeContext {
+public class RuntimeContext {
 
 
     public static ApplicationContext getSpringContext(){

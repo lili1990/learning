@@ -20,6 +20,7 @@ public class UserController {
     @RequestMapping("/index")
     public ModelAndView findUser(){
         User user = userService.getUserById(1);
+
         System.err.println("--------------************--------------------"+user.getUser_name());
         return new ModelAndView("index");
     }

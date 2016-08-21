@@ -9,11 +9,11 @@ import org.apache.curator.framework.recipes.cache.*;
 import org.apache.curator.framework.state.ConnectionState;
 import org.apache.curator.framework.state.ConnectionStateListener;
 import org.apache.curator.retry.ExponentialBackoffRetry;
+import org.apache.log4j.Logger;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooDefs;
 import org.eclipse.jetty.util.ConcurrentHashSet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.lang.reflect.Constructor;
 import java.nio.charset.Charset;
@@ -24,7 +24,7 @@ import java.util.*;
  */
 public class ZooKeeperClient {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ZooKeeperClient.class);
+    private static final Logger LOG = Logger.getLogger(ZooKeeperClient.class);
 
     public static final char PATH_SEPARATOR_CHAR = '/';
 
@@ -37,7 +37,7 @@ public class ZooKeeperClient {
     //连接状态监听
     private Set<ZooKeeperClientConnectionStateListener> connectionStateListeners = new ConcurrentHashSet<ZooKeeperClientConnectionStateListener>();
 
-    private Map<String,ZooKeeperNodeCacheHandler> nodeCacheHandlerMap = new HashMap<>();
+    private Map<String,ZooKeeperNodeCacheHandler> nodeCacheHandlerMap = new HashMap();
     private CuratorFramework client;
 
     /**

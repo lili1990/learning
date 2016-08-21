@@ -4,9 +4,9 @@ import app.utils.IoUtil;
 import org.apache.curator.framework.recipes.cache.ChildData;
 import org.apache.curator.framework.recipes.cache.NodeCache;
 import org.apache.curator.framework.recipes.cache.NodeCacheListener;
+import org.apache.log4j.Logger;
 import org.eclipse.jetty.util.ConcurrentHashSet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.io.IOException;
 import java.util.Set;
@@ -21,7 +21,7 @@ import java.util.concurrent.Executors;
  */
 public class ZooKeeperNodeCacheHandler implements NodeCacheListener {
 
-    private Logger LOG = LoggerFactory.getLogger(ZooKeeperNodeCacheHandler.class);
+    private Logger LOG = Logger.getLogger(ZooKeeperNodeCacheHandler.class);
 
     private String path;
 

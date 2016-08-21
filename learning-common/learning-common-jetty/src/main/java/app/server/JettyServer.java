@@ -4,10 +4,10 @@ package app.server;
 import app.utils.ServerProperties;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -18,9 +18,7 @@ import java.net.ServerSocket;
  */
 public class JettyServer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JettyServer.class);
-
-    private static final String DEFAULT_WEBAPP_PATH = "./src/main/webapp";
+    private static final Logger LOGGER = Logger.getLogger(JettyServer.class);
 
     private static final String PROP_NAME__PREFIX =  "jetty.";
 

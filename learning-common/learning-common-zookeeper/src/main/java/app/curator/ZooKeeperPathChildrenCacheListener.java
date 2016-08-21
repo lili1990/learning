@@ -6,8 +6,8 @@ import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.ChildData;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
+
 
 /**
  * Created by lili19289 on 2016/8/20.
@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  * 产生的事件会传递给注册的PathChildrenCacheListener。
  */
 public class ZooKeeperPathChildrenCacheListener implements PathChildrenCacheListener {
-    private static final Logger LOG = LoggerFactory.getLogger(ZooKeeperPathChildrenCacheListener.class);
+    private static final Logger LOG = Logger.getLogger(ZooKeeperPathChildrenCacheListener.class);
     @Override
     public void childEvent(CuratorFramework curatorFramework, PathChildrenCacheEvent pathChildrenCacheEvent)  {
         ChildData data = pathChildrenCacheEvent.getData();

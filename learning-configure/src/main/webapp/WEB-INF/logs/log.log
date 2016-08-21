@@ -1,0 +1,9 @@
+2016-08-21 16:36:50,525 [main] INFO  /(2052) - Initializing Spring FrameworkServlet 'spring'
+2016-08-21 16:36:50,528 [main] INFO  org.springframework.web.servlet.DispatcherServlet(461) - FrameworkServlet 'spring': initialization started
+2016-08-21 16:36:50,531 [main] INFO  org.springframework.web.context.support.XmlWebApplicationContext(513) - Refreshing WebApplicationContext for namespace 'spring-servlet': startup date [Sun Aug 21 16:36:50 GMT+08:00 2016]; parent: Root WebApplicationContext
+2016-08-21 16:36:50,532 [main] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader(316) - Loading XML bean definitions from URL [file:/E:/codingspace/learning/learning-configure/target/classes/spring/spring-mvc.xml]
+2016-08-21 16:36:50,883 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping(181) - Mapped "{[/update],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String app.controller.TestController.update()
+2016-08-21 16:36:51,449 [main] INFO  org.springframework.web.servlet.DispatcherServlet(480) - FrameworkServlet 'spring': initialization completed in 921 ms
+2016-08-21 16:36:51,450 [main] INFO  org.eclipse.jetty.server.handler.ContextHandler(744) - Started o.e.j.w.WebAppContext@69379752{/,file:/E:/codingspace/learning/learning-configure/src/main/webapp/,AVAILABLE}{./src/main/webapp}
+2016-08-21 16:36:51,466 [main] INFO  org.eclipse.jetty.server.ServerConnector(266) - Started ServerConnector@525f1e4e{HTTP/1.1}{0.0.0.0:9002}
+2016-08-21 16:36:51,466 [main] INFO  org.eclipse.jetty.server.Server(379) - Started @5511ms

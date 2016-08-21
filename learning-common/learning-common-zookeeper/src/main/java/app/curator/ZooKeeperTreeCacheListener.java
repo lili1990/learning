@@ -4,16 +4,15 @@ import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.ChildData;
 import org.apache.curator.framework.recipes.cache.TreeCacheEvent;
 import org.apache.curator.framework.recipes.cache.TreeCacheListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 
 /**
  * Created by lili19289 on 2016/8/20.
  */
 public class ZooKeeperTreeCacheListener implements TreeCacheListener {
-    private static final Logger LOG = LoggerFactory.getLogger(ZooKeeperTreeCacheListener.class);
-        @Override
-        public void childEvent(CuratorFramework client, TreeCacheEvent event) {
+    private static final Logger LOG = Logger.getLogger(ZooKeeperTreeCacheListener.class);
+
+    public void childEvent(CuratorFramework client, TreeCacheEvent event) {
             ChildData data = event.getData();
             try {
                 if (data != null) {

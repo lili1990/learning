@@ -8,18 +8,17 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>learning-spring</name>
+    <groupId>com.app</groupId>
     <artifactId>learning-spring</artifactId>
+    <version>1.0-SNAPSHOT</version>
 
     <properties>
         <org.springframework-version>4.0.0.RELEASE</org.springframework-version>
         <org.mybatis-version>3.2.6</org.mybatis-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- log4j日志文件管理包版本 -->
-        <slf4j.version>1.7.7</slf4j.version>
-        <log4j.version>1.2.17</log4j.version>
     </properties>
 
     <dependencies>
@@ -30,7 +29,11 @@
             <version>${project.version}</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>com.app</groupId>
+            <artifactId>learning-common-zookeeper</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
 
         <!-- AspectJ -->
@@ -124,26 +127,6 @@
             <artifactId>commons-dbcp</artifactId>
             <version>1.2.2</version>
         </dependency>
-
-        <!-- 日志文件管理包 -->
-        <!-- log start -->
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-
 
 
         <dependency>
