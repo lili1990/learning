@@ -16,9 +16,11 @@ public class ZooKeeperLoader {
             zooKeeperClient =  RuntimeContext.getBean(ZooKeeperClient.class);
             zooKeeperClient.addNodeCacheListener("/learning",ZooKeeperNodeCacheListener.class);
             zooKeeperClient.addPathChildrenListener("/learning",new ZooKeeperPathChildrenCacheListener());
+            zooKeeperClient.addTreeCacheListener("/learning",new ZooKeeperTreeCacheListener());
 //            zooKeeperClient.addNodeCacheListener("/learning");
         }catch (Exception e){
             e.printStackTrace();
+            LOG.error("ZooKeeperLoader connect zookeeper failed ",e);
         }
 
     }

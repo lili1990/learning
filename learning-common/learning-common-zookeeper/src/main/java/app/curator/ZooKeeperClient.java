@@ -5,9 +5,7 @@ import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.imps.CuratorFrameworkState;
-import org.apache.curator.framework.recipes.cache.NodeCache;
-import org.apache.curator.framework.recipes.cache.PathChildrenCache;
-import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
+import org.apache.curator.framework.recipes.cache.*;
 import org.apache.curator.framework.state.ConnectionState;
 import org.apache.curator.framework.state.ConnectionStateListener;
 import org.apache.curator.retry.ExponentialBackoffRetry;
@@ -67,19 +65,28 @@ public class ZooKeeperClient {
      * @param connectString 服务器连接串。
      */
     public ZooKeeperClient(String connectString) {
+        try {
         client = CuratorFrameworkFactory.newClient(connectString, new ExponentialBackoffRetry(
                 DEFAULT_BASE_SLEEP_TIME_MS, DEFAULT_MAX_RETRIES));
+        }catch (Exception e){
+            LOG.error("zookeeperclient connect failed ,the connectString is "+connectString,e);
+        }
     }
 
     /**
      * 启动该ZooKeeper客户端。
      */
     public void start() {
-        // 先确认状态，如果已经启动或关闭时调用start会抛异常
-        if (CuratorFrameworkState.LATENT == client.getState()) {
-            client.getConnectionStateListenable().addListener(new ClientConnectionStateListener());
-            client.start();
+        try {
+            // 先确认状态，如果已经启动或关闭时调用start会抛异常
+            if (CuratorFrameworkState.LATENT == client.getState()) {
+                client.getConnectionStateListenable().addListener(new ClientConnectionStateListener());
+                client.start();
+            }
+        }catch (Exception e){
+            LOG.error("zookeeperclient start failed ",e);
         }
+
     }
 
     /**
@@ -329,15 +336,17 @@ public class ZooKeeperClient {
 
 
     /**
-     * Path Cache：监视一个路径下1）孩子结点的创建、2）删除，3）以及结点数据的更新。
-     *                  产生的事件会传递给注册的PathChildrenCacheListener。
+     * Path Cache：
+     * 监视一个路径下
+     * 1）孩子结点的创建、2）孩子结点的删除，3）以及孩子结点数据的更新。
+     *  产生的事件会传递给注册的PathChildrenCacheListener。
      * @param path
      * @param listener
      */
     public void addPathChildrenListener(String path,PathChildrenCacheListener listener){
         if(!exists(path))mkdirs(path);
-        PathChildrenCache childrenCache = new PathChildrenCache(client, path,true);
         try {
+            PathChildrenCache childrenCache = new PathChildrenCache(client, path,true);
             childrenCache.getListenable().addListener(listener);
             childrenCache.start();
 //            childrenCache.start(PathChildrenCache.StartMode.POST_INITIALIZED_EVENT);
@@ -346,6 +355,22 @@ public class ZooKeeperClient {
             LOG.error("PathChildrenCache listen fail,path = "+path,e);
         }
 
+    }
+
+    /**
+     *  监控 指定节点和节点下的所有的节点的变化--无限监听  可以进行本节点的删除(不在创建)
+     * @param path
+     * @param listener
+     */
+    public void addTreeCacheListener(String path, TreeCacheListener listener){
+        if(!exists(path))mkdirs(path);
+        try {
+            TreeCache treeCache = new TreeCache(client,path);
+            treeCache.getListenable().addListener(listener);
+            treeCache.start();
+        }catch (Exception e){
+            LOG.error(" zookeeper treeCache listener failed ,the path is "+path,e);
+        }
     }
 
 
