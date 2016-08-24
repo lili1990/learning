@@ -15,4 +15,9 @@ hs_err_pid*
 target/
 
 *.iml
-logs/
+logs/*
+log/*
+log
+log.*
+logs
+*.log

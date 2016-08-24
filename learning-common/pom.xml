@@ -16,6 +16,7 @@
         <module>learning-common-jetty</module>
         <module>learning-common-zookeeper</module>
         <module>learning-common-main</module>
+        <module>learning-common-configure</module>
     </modules>
 
 

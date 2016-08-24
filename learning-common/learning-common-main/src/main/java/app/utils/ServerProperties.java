@@ -25,19 +25,7 @@ public class ServerProperties {
     }
 
     private static void init() {
-        String filePath =EnvivironmentUtil.getClassPath()+FILE_NAME;
-        InputStream ins = null;
-        try {
-            ins  = new FileInputStream(filePath);
-            prop = new Properties();
-            prop.load(ins);
-        } catch (FileNotFoundException e) {
-            LOGGER.error("Can not find server properties, it may result working problem. path: " + filePath, e);
-        } catch (Exception e) {
-            LOGGER.error("init server properties failed", e);
-        } finally {
-            IOUtils.closeQuietly(ins);
-        }
+        prop = PropertiesUtil.getFromFile(FILE_NAME);
     }
 
 

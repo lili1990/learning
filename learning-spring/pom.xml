@@ -35,6 +35,12 @@
             <version>${project.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.app</groupId>
+            <artifactId>learning-common-configure</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
 
         <!-- AspectJ -->
         <dependency>
