@@ -25,6 +25,9 @@
 	<bean id="zkLoader" class="app.curator.ZooKeeperLoader" init-method="init" />
 
 
+	<bean id="zkConfigure" class="app.utils.ConfigureService" init-method="initConfgure" />
+
+
 	<bean class="app.jobs.StartUp"/>
 
 

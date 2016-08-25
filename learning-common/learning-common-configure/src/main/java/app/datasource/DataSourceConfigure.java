@@ -1,19 +1,12 @@
 package app.datasource;
 
-import app.context.RuntimeContext;
-import app.utils.EnvivironmentUtil;
 import app.utils.PropertiesUtil;
 import app.utils.ValueUtil;
 import org.apache.commons.dbcp.BasicDataSource;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.sql.DataSource;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
