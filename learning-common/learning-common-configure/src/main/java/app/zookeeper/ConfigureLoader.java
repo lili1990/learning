@@ -1,48 +1,35 @@
-package app.utils;
+package app.zookeeper;
 
 import app.context.RuntimeContext;
 import app.curator.ZooKeeperClient;
-import com.google.gson.Gson;
+import app.utils.JackSonUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileFilter;
 import java.util.Collections;
 import java.util.Map;
-import java.util.Properties;
 
 /**
  * Created by lili19289 on 2016/8/24.
  */
 
-public class ConfigureService {
+public class ConfigureLoader {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ConfigureService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConfigureLoader.class);
 
     public static final String CONFIGURE_PATH="/configure";
 
     private static ZooKeeperClient client;
 
-    public ConfigureService(){}
+    public ConfigureLoader(){}
 
     public void initConfgure(){
         ZooKeeperClient zkClient = RuntimeContext.getBean(ZooKeeperClient.class);
-//        File rootFile = new File(EnvivironmentUtil.getClassPath()+CONFIGURE_PATH);
-//        for(File file : rootFile.listFiles(new FileFilter() {
-//            public boolean accept(File pathname) {
-//                return pathname.getName().contains(".properties");
-//            }
-//        })){
-//            String fileName = file.getName();
-//            String path = fileName.replace(".properties","");
-//            Properties properties = PropertiesUtil.getFromFile(CONFIGURE_PATH+"/"+file.getName());
-//            zkClient.setData(CONFIGURE_PATH+"/"+path,properties.toString());
-//        }
+        this.client=zkClient;
     }
 
-    public ConfigureService(ZooKeeperClient client){
+    public ConfigureLoader(ZooKeeperClient client){
         this.client=client;
     }
 
@@ -56,8 +43,8 @@ public class ConfigureService {
     }
 
 
-    public static Map<Object, Object> getConfigDataFromZooKeeper(String category) {
-        Map<Object, Object> map = null;
+    public static Map<String, Object> getConfigDataFromZooKeeper(String category) {
+        Map<String, Object> map = null;
         if (null != client) {
             if (StringUtils.isNotBlank(category)) {
                 map = JackSonUtil.fromJson(client.getStringData(CONFIGURE_PATH+"/"+category),Map.class);

@@ -1,6 +1,8 @@
-package app.utils;
+package app.zookeeper;
 
-import org.apache.commons.lang.StringUtils;
+import app.utils.EnvironmentUtil;
+import app.utils.JackSonUtil;
+import app.utils.PropertiesUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,13 +20,13 @@ public class ConfigureUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(ConfigureUtil.class);
 
 
-    private static Map<Object, Object> loadConfigData(String catatlog) {
+    public static Map<String, Object> loadConfigData(String catatlog) {
         Properties properties=null;
-        Map<Object, Object> configData = new HashMap<Object, Object>();
+        Map<String, Object> configData = new HashMap<String, Object>();
         String filePath=EnvironmentUtil.getRuntimeConfigPath()+"/"+catatlog+"/"+catatlog+".properties";
         properties = PropertiesUtil.readFromFile(filePath);
         if (null == properties || properties.isEmpty()) {
-            properties = PropertiesUtil.getFromFile(ConfigureService.CONFIGURE_PATH+"/"+catatlog+".properties");
+            properties = PropertiesUtil.getFromFile(ConfigureLoader.CONFIGURE_PATH+"/"+catatlog+".properties");
             LOGGER.info("use configure data in project");
         } else {
             LOGGER.info("use configure data in local data file");
@@ -33,8 +35,8 @@ public class ConfigureUtil {
         return configData;
     }
 
-    public static  Map<Object, Object> getConfigureData(String catatlog) {
-        Map<Object, Object> configData = ConfigureService.getConfigDataFromZooKeeper(catatlog);
+    public static  Map<String, Object> getConfigureData(String catatlog) {
+        Map<String, Object> configData = ConfigureLoader.getConfigDataFromZooKeeper(catatlog);
         if(configData!=null && configData.isEmpty()){
             configData = loadConfigData(catatlog);
         }
@@ -42,7 +44,7 @@ public class ConfigureUtil {
     }
 
     public static  void setConfigureData(String catatlog,Map<String,Object> map) {
-        ConfigureService.setConfigDataFromZooKeeper(catatlog,JackSonUtil.toJson(map) );
+        ConfigureLoader.setConfigDataFromZooKeeper(catatlog,JackSonUtil.toJson(map) );
         StringBuilder sb = new StringBuilder();
         for(Map.Entry entry : map.entrySet()){
             sb.append(entry.getKey()).append("=").append(entry.getValue()).append("\r\n");
