@@ -1,5 +1,7 @@
 package app.datasource;
 
+import app.context.RuntimeContext;
+import app.utils.JackSonUtil;
 import app.utils.PropertiesUtil;
 import app.utils.ValueUtil;
 import app.zookeeper.ConfigureUtil;
@@ -47,20 +49,29 @@ public class DataSourceConfigure extends BasicDataSource{
 
 
 
+
+
     private static final Log LOG = LogFactory.getLog(DataSourceConfigure.class);
 
     private static Properties prop;
-
-    private  void init() {
-
-    }
 
     public Connection getConnection() throws SQLException {
         return this.getDataSource().getConnection();
     }
 
     public DataSource getDataSource (){
+        initDataSource();
+        try {
+            this.dataSource= this.createDataSource();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return this.dataSource;
+    }
+
+    public void initDataSource(){
         Map<String,Object > configureData = ConfigureUtil.loadConfigData("db");
+        System.err.println(configureData.get(PROP_KEY_DRIVERCLASSNAME).toString());
         this.setDriverClassName(configureData.get(PROP_KEY_DRIVERCLASSNAME).toString());
         this.setUrl(configureData.get(PROP_KEY_URL).toString());
         this.setUsername(configureData.get(PROP_KEY_USERNAME).toString());
@@ -113,13 +124,17 @@ public class DataSourceConfigure extends BasicDataSource{
             minEvictableIdleTimeMillis = this.minEvictableIdleTimeMillis;
         }
         this.setMinEvictableIdleTimeMillis(minEvictableIdleTimeMillis);
+    }
 
+
+    public static void changeDataSource(){
+       DataSourceConfigure dataSourceConfigure = (DataSourceConfigure) RuntimeContext.getBean("dataSource");
         try {
-            this.dataSource= this.createDataSource();
+            dataSourceConfigure.close();
+            dataSourceConfigure.initDataSource();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return this.dataSource;
     }
 
 

@@ -2,8 +2,10 @@ package app.zookeeper;
 
 import app.context.RuntimeContext;
 import app.curator.ZooKeeperClient;
+import app.curator.ZooKeeperTreeCacheListener;
 import app.utils.JackSonUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Category;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +28,8 @@ public class ConfigureLoader {
 
     public void initConfgure(){
         ZooKeeperClient zkClient = RuntimeContext.getBean(ZooKeeperClient.class);
-        this.client=zkClient;
+        client=zkClient;
+        client.addTreeCacheListener(CONFIGURE_PATH,new ZooKeeperConfigureListener());
     }
 
     public ConfigureLoader(ZooKeeperClient client){
@@ -45,12 +48,12 @@ public class ConfigureLoader {
 
     public static Map<String, Object> getConfigDataFromZooKeeper(String category) {
         Map<String, Object> map = null;
-        if (null != client) {
+        try{
             if (StringUtils.isNotBlank(category)) {
                 map = JackSonUtil.fromJson(client.getStringData(CONFIGURE_PATH+"/"+category),Map.class);
             }
-        } else {
-            LOGGER.warn("no ZooKeeperClient exists, will not get data  from  zookeeper");
+        } catch (Exception e){
+            LOGGER.warn("no ZooKeeperClient exists, will not get data  from  zookeeper",e);
         }
        if(map==null){
            map= Collections.emptyMap();
@@ -59,12 +62,12 @@ public class ConfigureLoader {
     }
 
     public static void setConfigDataFromZooKeeper(String category,String data) {
-        if (null != client) {
+        try{
             if (StringUtils.isNotBlank(category)) {
                 client.setData(CONFIGURE_PATH+"/"+category,data);
             }
-        } else {
-            LOGGER.warn("no ZooKeeperClient exists, will not write to zookeeper");
+        } catch (Exception e){
+            LOGGER.warn("no ZooKeeperClient exists, will not write to zookeeper",e);
         }
     }
 

@@ -22,7 +22,7 @@ public class ConfigureController {
     @RequestMapping("/loadConfigure")
     public String loadConfigure(HttpServletRequest request){
         String catatlog= request.getParameter("catatlog");
-        Map<Object, Object> configData  = ConfigureUtil.getConfigureData(catatlog);
+        Map<String, Object> configData  = ConfigureUtil.getConfigureData(catatlog);
         return JackSonUtil.toJson(configData);
     }
 

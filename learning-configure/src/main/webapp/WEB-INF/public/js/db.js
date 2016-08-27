@@ -10,6 +10,7 @@ $(function(){
             success:function(json){
                 var dbConfigure = eval('(' + json + ')');
                 $("#connectUrl").val(dbConfigure["db.url"]);
+                $("#driver").val(dbConfigure["db.driver"]);
                 $("#userName").val(dbConfigure["db.username"]);
                 $("#password").val(dbConfigure["db.password"]);
                 $("#maxActive").val(dbConfigure["db.maxActive"]);
