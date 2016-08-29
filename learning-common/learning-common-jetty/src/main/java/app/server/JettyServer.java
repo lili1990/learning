@@ -1,6 +1,7 @@
 package app.server;
 
 
+import app.main.Configure;
 import app.utils.ServerProperties;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -50,16 +51,16 @@ public class JettyServer {
     public static void main(String[] args) {
         String contextPath = System.getProperty(PROP_NAME_CONTEXT_PATH);
         if (StringUtils.isBlank(contextPath)) {
-            contextPath = ServerProperties.getProperty(PROP_NAME_CONTEXT_PATH);
+            contextPath = Configure.configuration.getProperty(PROP_NAME_CONTEXT_PATH);
         }
         String webappPath = System.getProperty(PROP_NAME_WEBAPP_PATH);
         if (StringUtils.isBlank(webappPath)) {
-            webappPath = ServerProperties.getProperty(PROP_NAME_WEBAPP_PATH);
+            webappPath = Configure.configuration.getProperty(PROP_NAME_WEBAPP_PATH);
         }
 
         String portString = System.getProperty(PROP_NAME_PORT);
         if (StringUtils.isBlank(portString)) {
-            portString = ServerProperties.getProperty(PROP_NAME_PORT);
+            portString = Configure.configuration.getProperty(PROP_NAME_PORT);
         }
         int port = 0;
         try {

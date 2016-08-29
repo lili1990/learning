@@ -1,6 +1,5 @@
 package app.controller;
 
-import app.context.RunTimeContext;
 import app.models.User;
 import app.service.UserService;
 import org.springframework.stereotype.Controller;

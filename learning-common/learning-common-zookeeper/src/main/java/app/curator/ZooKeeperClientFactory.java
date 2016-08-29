@@ -1,5 +1,6 @@
 package app.curator;
 
+import app.main.Configure;
 import app.utils.ServerProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -12,30 +13,20 @@ public class ZooKeeperClientFactory {
 
     private static final Logger LOG = Logger.getLogger(ZooKeeperClientFactory.class);
 
-    public static final String ZOOKEEPER_CONNECTSTRING = "zookeeper.connectString";
-    public static final String ZOOKEEPER_BASE_PATH = "zookeeper.basePath";
+    public static final String ZOOKEEPER_CONNECTSTRING = Configure.configuration.getProperty("zookeeper.connectString","localhost:2181");
+    public static final String ZOOKEEPER_BASE_PATH = Configure.configuration.getProperty("zookeeper.basePath","/root");
 
     public static ZooKeeperClient createZooKeeperClient() {
-        String zookeeperConnectString = System.getProperty(ZOOKEEPER_CONNECTSTRING);
-        if (StringUtils.isBlank(zookeeperConnectString)) {
-            zookeeperConnectString = ServerProperties.getProperty(ZOOKEEPER_CONNECTSTRING);
-        }
-        String basePath = System.getProperty(ZOOKEEPER_BASE_PATH);
-        if (StringUtils.isBlank(basePath)) {
-            basePath = ServerProperties.getProperty(ZOOKEEPER_BASE_PATH);
-        }
         try {
-            if (StringUtils.isNotBlank(zookeeperConnectString)) {
-                if (StringUtils.isNotBlank(basePath)) {
-                    ZooKeeperClient zkClient = new ZooKeeperClient(zookeeperConnectString);
+            if (StringUtils.isNotBlank(ZOOKEEPER_CONNECTSTRING)) {
+                if (StringUtils.isNotBlank(ZOOKEEPER_BASE_PATH)) {
+                    ZooKeeperClient zkClient = new ZooKeeperClient(ZOOKEEPER_CONNECTSTRING);
                     zkClient.start();
-                    zkClient.mkdirs(basePath);
+                    zkClient.mkdirs(ZOOKEEPER_BASE_PATH);
                     zkClient.close();
-                    // 组装完整的连接串
-                    zookeeperConnectString += basePath;
                 }
-                ZooKeeperClient zkClient = new ZooKeeperClient(zookeeperConnectString);
-                LOG.info("create ZooKeeperClient of: " + zookeeperConnectString);
+                ZooKeeperClient zkClient = new ZooKeeperClient( ZOOKEEPER_CONNECTSTRING + ZOOKEEPER_BASE_PATH);
+                LOG.info("create ZooKeeperClient of: " + ZOOKEEPER_CONNECTSTRING);
                 zkClient.start();
                 return zkClient;
             }

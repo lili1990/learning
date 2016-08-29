@@ -20,19 +20,17 @@ public class ServerProperties {
 
     private static Properties prop;
 
-    static {
-        init();
-    }
+
 
     private static void init() {
-        prop = PropertiesUtil.getFromFile(FILE_NAME);
+//        prop = PropertiesUtil.getFromFile(FILE_NAME);
     }
 
 
-    public static String getProperty(String key) {
-        if (null != prop) {
-            return prop.getProperty(key);
-        }
-        return null;
-    }
+//    public static String getProperty(String key) {
+//        if (null != prop) {
+//            return prop.getProperty(key);
+//        }
+//        return null;
+//    }
 }
