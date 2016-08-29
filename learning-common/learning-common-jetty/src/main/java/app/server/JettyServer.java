@@ -2,10 +2,10 @@ package app.server;
 
 
 import app.main.Configure;
+import app.main.Logger;
 import app.utils.ServerProperties;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 
@@ -19,7 +19,6 @@ import java.net.ServerSocket;
  */
 public class JettyServer {
 
-    private static final Logger LOGGER = Logger.getLogger(JettyServer.class);
 
     private static final String PROP_NAME__PREFIX =  "jetty.";
 
@@ -108,11 +107,11 @@ public class JettyServer {
             long st = System.currentTimeMillis();
             server.start();
             long sp = System.currentTimeMillis() - st;
-            System.out.println("JettyServer started: " + String.format("%.2f sec", sp / 1000D)+",the port is ==="+port+"");
+            Logger.info("Listening for HTTP on port %s  ...",new Object[] { Integer.valueOf(port) });
             server.join();
         }catch (Exception e){
             e.printStackTrace();
-            LOGGER.error("JettyServer started failed!");
+            Logger.error("JettyServer started failed!");
         }
     }
 
@@ -122,14 +121,14 @@ public class JettyServer {
             try {
                 ss = new ServerSocket(port, 0, null);
             } catch (Exception e) {
-                LOGGER.error("check serverPort failed", e);
+                Logger.error("check serverPort failed", e);
                 return false;
             } finally {
                 if (null != ss) {
                     try {
                         ss.close();
                     } catch (IOException e) {
-                        LOGGER.error("close ServerSocket failed", e);
+                        Logger.error("close ServerSocket failed", e);
                     }
                 }
             }
