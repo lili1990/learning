@@ -1,6 +1,9 @@
 package app.main;
 
 import app.utils.PropertiesUtil;
+import org.apache.commons.codec.language.bm.Lang;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 import java.io.File;
 import java.util.Properties;
@@ -67,5 +70,18 @@ public class Configure {
         configuration = PropertiesUtil.getFromFile("conf/application.conf");
     }
 
+
+    public static String getDateFormat() {
+        String localizedDateFormat = configuration
+                .getProperty("date.format." +  LocaleContextHolder.getLocale());
+        if (!StringUtils.isEmpty(localizedDateFormat)) {
+            return localizedDateFormat;
+        } else {
+            String globalDateFormat = configuration
+                    .getProperty("date.format");
+            return !StringUtils.isEmpty(globalDateFormat) ? globalDateFormat
+                    : "yyyy-MM-dd";
+        }
+    }
 
 }

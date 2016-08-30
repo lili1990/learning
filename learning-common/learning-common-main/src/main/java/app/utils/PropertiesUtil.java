@@ -1,7 +1,7 @@
 package app.utils;
 
+import app.main.Logger;
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,45 +14,31 @@ import java.util.Properties;
  */
 public class PropertiesUtil {
 
-    private static final Logger LOGGER = Logger.getLogger(ServerProperties.class);
 
     //填写相对路径，class文件下的路径
     public static Properties getFromFile(String filePath) {
         filePath = EnvironmentUtil.getClassPath() + filePath;
-        Properties prop = null;
-        InputStream ins = null;
-        try {
-            ins = new FileInputStream(filePath);
-            prop = new Properties();
-            prop.load(ins);
-            return prop;
-        } catch (FileNotFoundException e) {
-            LOGGER.error("Can not find server properties, it may result working problem. path: " + filePath, e);
-        } catch (Exception e) {
-            LOGGER.error("init server properties failed", e);
-        } finally {
-            IOUtils.closeQuietly(ins);
-        }
-        return null;
+        return readFile(new File(filePath));
     }
 
     //填写绝对路径，硬盘上的文件
     public static Properties readFromFile(String filePath) {
         File file = new File(filePath);
-        if(!file.exists()){
-            return null;
-        }
+        return readFile(file);
+    }
+
+    public static Properties readFile(File file){
         Properties prop = null;
         InputStream ins = null;
         try {
-            ins = new FileInputStream(filePath);
+            ins = new FileInputStream(file);
             prop = new Properties();
             prop.load(ins);
             return prop;
         } catch (FileNotFoundException e) {
-            LOGGER.error("Can not find server properties, it may result working problem. path: " + filePath, e);
+            Logger.error("Can not find server properties, it may result working problem. path: " , e);
         } catch (Exception e) {
-            LOGGER.error("init server properties failed", e);
+            Logger.error("init server properties failed", e);
         } finally {
             IOUtils.closeQuietly(ins);
         }
