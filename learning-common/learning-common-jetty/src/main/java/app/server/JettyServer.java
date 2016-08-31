@@ -3,15 +3,12 @@ package app.server;
 
 import app.main.Configure;
 import app.main.Logger;
-import app.utils.ServerProperties;
-import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 
 /**
@@ -111,7 +108,7 @@ public class JettyServer {
             server.join();
         }catch (Exception e){
             e.printStackTrace();
-            Logger.error("JettyServer started failed!");
+            Logger.error("JettyServer started failed!",e);
         }
     }
 

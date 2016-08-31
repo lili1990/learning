@@ -29,14 +29,12 @@ public class DateUtil {
     }
 
     public static String format(Date date, String pattern) {
-        return (new SimpleDateFormat(pattern, LocaleContextHolder.getLocale()))
-                .format(date);
+        return new SimpleDateFormat(pattern) .format(date);
     }
 
     public static String format(Date date, String pattern,
                                 String timezone) {
-        SimpleDateFormat df = new SimpleDateFormat(pattern,
-                LocaleContextHolder.getLocale());
+        SimpleDateFormat df = new SimpleDateFormat(pattern);
         df.setTimeZone(TimeZone.getTimeZone(timezone));
         return df.format(date);
     }

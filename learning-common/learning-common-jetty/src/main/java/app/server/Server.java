@@ -3,14 +3,11 @@ package app.server;
 import app.main.Configure;
 import app.main.Logger;
 import app.utils.EnvironmentUtil;
-import app.utils.ServerProperties;
 import org.apache.commons.lang3.StringUtils;
-import org.eclipse.jetty.util.Jetty;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 import java.io.File;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.util.Properties;
 
 /**

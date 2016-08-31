@@ -17,6 +17,7 @@
         <module>learning-common-zookeeper</module>
         <module>learning-common-main</module>
         <module>learning-common-configure</module>
+        <module>learning-common-cache</module>
     </modules>
 
 

@@ -16,9 +16,9 @@ public class ZookeeperConfigLoader {
 
     public void init(){
         try {
-            this.zkClient =  new ZkClient("127.0.0.1:2181");
-            this.zkConfig = new ZkConfigChangeSubscriberImpl(zkClient,"/zkSample/conf");
-            this.zkConfig.subscribe("test1.properties", new ConfigChangeListenerImpl());
+//            this.zkClient =  new ZkClient("127.0.0.1:2181");
+//            this.zkConfig = new ZkConfigChangeSubscriberImpl(zkClient,"/zkSample/conf");
+//            this.zkConfig.subscribe("test1.properties", new ConfigChangeListenerImpl());
         }catch (Exception e){
             e.printStackTrace();
         }

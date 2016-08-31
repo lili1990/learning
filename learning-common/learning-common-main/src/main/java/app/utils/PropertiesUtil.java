@@ -36,9 +36,9 @@ public class PropertiesUtil {
             prop.load(ins);
             return prop;
         } catch (FileNotFoundException e) {
-            Logger.error("Can not find server properties, it may result working problem. path: " , e);
+            Logger.error("Can not find the file, it may result working problem. path: " , e);
         } catch (Exception e) {
-            Logger.error("init server properties failed", e);
+            Logger.error("init configure properties failed", e);
         } finally {
             IOUtils.closeQuietly(ins);
         }
