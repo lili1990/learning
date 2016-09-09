@@ -18,6 +18,7 @@
         <module>learning-common-main</module>
         <module>learning-common-configure</module>
         <module>learning-common-cache</module>
+        <module>learning-common-swagger</module>
     </modules>
 
 

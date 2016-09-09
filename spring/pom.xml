@@ -42,6 +42,12 @@
       <version>${project.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>com.app</groupId>
+      <artifactId>learning-common-swagger</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
 
 
     <!-- AspectJ -->
@@ -169,6 +175,9 @@
       <artifactId>commons-fileupload</artifactId>
       <version>1.3.2</version>
     </dependency>
+
+
+
 
   </dependencies>
 

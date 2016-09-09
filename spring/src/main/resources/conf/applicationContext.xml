@@ -13,6 +13,9 @@
 	<!-- 启用注解式AOP -->
 	<aop:aspectj-autoproxy />
 
+	<!-- 启用spring mvc 注解 -->
+	<context:annotation-config />
+
 	<import resource="applicationContext-dao.xml" />
 	<import resource="spring-mvc.xml" />
 
@@ -29,7 +32,9 @@
 	<bean id="zkConfigLoader" class="app.zookeeper.ConfigureLoader" init-method="initConfgure" />
 
 
+	<bean class="app.configure.SwaggerConfig" />
 
 	<!--<bean id="zkLoader" class="app.curator.ZooKeeperLoader" init-method="init" />-->
+
 
 </beans>
