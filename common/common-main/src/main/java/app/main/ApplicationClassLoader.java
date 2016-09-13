@@ -46,8 +46,12 @@ public class ApplicationClassLoader extends ClassLoader {
 
    static void scan(List<Class> classes, String packageName, File current) throws ClassNotFoundException {
         if (!current.isDirectory()) {
-            if (current.getName().endsWith(".class") && !current.getName().startsWith(".")) {
-                String classname =  current.getName().substring(0, current.getName().length() - 5);
+            String fileName = current.getPath();
+            String classname="";
+            if (fileName.endsWith(".class") && !fileName.startsWith(".")) {
+                classname = fileName.substring(fileName.indexOf("classes\\")+8, fileName.length() - 6);
+                classname = classname.replace("\\.class", "").replace("\\", ".");
+                Class<?> classObject = Class.forName(classname);
                 classes.add(Class.forName(classname));
             }
         } else {
@@ -55,6 +59,10 @@ public class ApplicationClassLoader extends ClassLoader {
                 scan(classes, packageName + current.getName() + ".", file);
             }
         }
+    }
+
+    public static void main(String[] args) {
+        getAllClasses();
     }
 
 }
