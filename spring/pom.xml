@@ -26,25 +26,25 @@
 
     <dependency>
       <groupId>com.app</groupId>
-      <artifactId>learning-common-jetty</artifactId>
+      <artifactId>common-jetty</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.app</groupId>
-      <artifactId>learning-common-zookeeper</artifactId>
+      <artifactId>common-zookeeper</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.app</groupId>
-      <artifactId>learning-common-configure</artifactId>
+      <artifactId>common-configure</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.app</groupId>
-      <artifactId>learning-common-swagger</artifactId>
+      <artifactId>common-swagger</artifactId>
       <version>${project.version}</version>
     </dependency>
 
