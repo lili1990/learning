@@ -118,42 +118,7 @@ public class Configure {
         }
     }
 
-    public static void main(String[] arg){
-        ExecutorService executor = Executors. newCachedThreadPool();
-        FutureTask<Integer> futureTask = new FutureTask<Integer>(new Callable<Integer>() {
-            @Override
-            public Integer call() throws Exception {
-                return 1;
-            }
-        });
-        Future f =executor.submit(futureTask);
-        Future f1 =executor.submit(new Callable<Integer>() {
-            @Override
-            public Integer call() throws Exception {
-                return 2;
-            }
-        });
-        executor.shutdown();
-        try {
-            Thread. sleep(1000);
-        } catch (InterruptedException e1) {
-            e1.printStackTrace();
-        }
 
-        System. out.println("主线程在执行任务" );
-
-        try {
-            System. out.println("task运行结果" + futureTask.get());
-            System. out.println("task运行结果" + f.get());
-            System. out.println("task运行结果" + f1.get());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        System. out.println("所有任务执行完毕" );
-    }
 
 
 }
