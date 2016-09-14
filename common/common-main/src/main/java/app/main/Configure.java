@@ -1,12 +1,16 @@
 package app.main;
 
+import app.plugs.PluginCollection;
 import app.utils.PropertiesUtil;
 import org.apache.commons.codec.language.bm.Lang;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.context.i18n.LocaleContextHolder;
 
+import javax.print.attribute.standard.JobPriority;
 import java.io.File;
+import java.rmi.UnexpectedException;
 import java.util.Properties;
+import java.util.concurrent.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,10 +20,13 @@ import java.util.regex.Pattern;
  */
 public class Configure {
 
+    public static boolean started = false;
     public static File applicationPath = null;
     public static Properties configuration;
     public static File tmpDir = null;
     public static boolean readOnlyTmp = false;
+
+    public static PluginCollection pluginCollection = new PluginCollection();
 
 
     public static void init(File root){
@@ -62,6 +69,33 @@ public class Configure {
                             new Object[0]);
                 }
             }
+            pluginCollection.loadPlugins();
+            start();
+        }
+
+    }
+
+    public static synchronized void start() {
+        if (started) {
+            stop();
+        }
+        try {
+            pluginCollection.onApplicationStart();
+        } catch (Exception e) {
+            Logger.error("plugin onApplicationStart failded...",e);
+        }
+        started = true;
+        try {
+            pluginCollection.afterApplicationStart();
+        } catch (UnexpectedException e) {
+            Logger.error("plugin afterApplicationStart failded...",e);
+        }
+    }
+    public static synchronized void stop() {
+        if (started) {
+            Logger.trace("Stopping the play application", new Object[0]);
+            pluginCollection.onApplicationStop();
+            started = false;
         }
 
     }
@@ -83,5 +117,43 @@ public class Configure {
                     : "yyyy-MM-dd";
         }
     }
+
+    public static void main(String[] arg){
+        ExecutorService executor = Executors. newCachedThreadPool();
+        FutureTask<Integer> futureTask = new FutureTask<Integer>(new Callable<Integer>() {
+            @Override
+            public Integer call() throws Exception {
+                return 1;
+            }
+        });
+        Future f =executor.submit(futureTask);
+        Future f1 =executor.submit(new Callable<Integer>() {
+            @Override
+            public Integer call() throws Exception {
+                return 2;
+            }
+        });
+        executor.shutdown();
+        try {
+            Thread. sleep(1000);
+        } catch (InterruptedException e1) {
+            e1.printStackTrace();
+        }
+
+        System. out.println("主线程在执行任务" );
+
+        try {
+            System. out.println("task运行结果" + futureTask.get());
+            System. out.println("task运行结果" + f.get());
+            System. out.println("task运行结果" + f1.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        System. out.println("所有任务执行完毕" );
+    }
+
 
 }

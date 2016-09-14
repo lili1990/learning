@@ -2,6 +2,7 @@ package app.main;
 
 import com.google.gson.JsonObject;
 
+import java.rmi.UnexpectedException;
 import java.util.Collection;
 
 /**
@@ -19,9 +20,6 @@ public class Plugin implements Comparable<Plugin> {
     public void onLoad() {
     }
 
-    public boolean compileSources() {
-        return false;
-    }
 
     /**
      * Return the plugin status
@@ -47,7 +45,7 @@ public class Plugin implements Comparable<Plugin> {
     /**
      * Called after the application start.
      */
-    public void afterApplicationStart() {
+    public void afterApplicationStart() throws UnexpectedException {
     }
 
     /**
