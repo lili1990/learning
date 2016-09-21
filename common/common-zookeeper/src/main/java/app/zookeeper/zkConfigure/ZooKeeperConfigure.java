@@ -1,6 +1,6 @@
-package app.zkConfigure;
+package app.zookeeper.zkConfigure;
 
-import app.curator.ZooKeeperClient;
+import app.zookeeper.curator.ZooKeeperClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

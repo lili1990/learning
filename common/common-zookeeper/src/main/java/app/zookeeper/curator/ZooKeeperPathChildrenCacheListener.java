@@ -1,7 +1,6 @@
-package app.curator;
+package app.zookeeper.curator;
 
 import app.utils.IoUtil;
-import org.apache.commons.io.IOUtils;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.ChildData;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;

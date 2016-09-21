@@ -1,4 +1,4 @@
-package app.curator;
+package app.zookeeper.curator;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.ChildData;

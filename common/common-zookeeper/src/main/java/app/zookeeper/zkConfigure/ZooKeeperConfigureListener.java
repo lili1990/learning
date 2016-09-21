@@ -1,6 +1,5 @@
-package app.zkConfigure;
+package app.zookeeper.zkConfigure;
 
-import app.curator.ZooKeeperTreeCacheListener;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.ChildData;
 import org.apache.curator.framework.recipes.cache.TreeCacheEvent;

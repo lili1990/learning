@@ -1,6 +1,6 @@
-package app.memcached;
+package app.cache.memcached;
 
-import app.Cache;
+import app.cache.Cache;
 import app.main.Configure;
 import app.main.Logger;
 import net.spy.memcached.*;
@@ -10,7 +10,6 @@ import net.spy.memcached.internal.BulkFuture;
 import net.spy.memcached.internal.GetFuture;
 import net.spy.memcached.internal.OperationFuture;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;

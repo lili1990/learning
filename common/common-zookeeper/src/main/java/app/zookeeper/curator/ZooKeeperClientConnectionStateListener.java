@@ -1,4 +1,4 @@
-package app.curator;
+package app.zookeeper.curator;
 
 /**
  * Created by lili19289 on 2016/8/18.

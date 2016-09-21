@@ -1,7 +1,7 @@
-package app.redis;
+package app.cache.redis;
 
-import app.Cache;
-import app.CacheConfigure;
+import app.cache.Cache;
+import app.cache.CacheConfigure;
 import app.main.Logger;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;

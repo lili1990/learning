@@ -1,11 +1,9 @@
 package app.zookeeper;
 
 import app.context.RuntimeContext;
-import app.curator.ZooKeeperClient;
-import app.curator.ZooKeeperTreeCacheListener;
+import app.zookeeper.curator.ZooKeeperClient;
 import app.utils.JackSonUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Category;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

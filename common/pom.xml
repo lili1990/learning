@@ -21,6 +21,7 @@
         <module>common-swagger</module>
         <module>common-jobs</module>
         <module>common-utils</module>
+        <module>common-aspect</module>
     </modules>
 
 

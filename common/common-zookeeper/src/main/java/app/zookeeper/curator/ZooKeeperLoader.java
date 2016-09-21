@@ -1,4 +1,4 @@
-package app.curator;
+package app.zookeeper.curator;
 
 import app.context.RuntimeContext;
 import org.apache.log4j.Logger;

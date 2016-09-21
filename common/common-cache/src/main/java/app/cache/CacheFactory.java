@@ -1,7 +1,7 @@
-package app;
+package app.cache;
 
-import app.memcached.MemCachedImpl;
-import app.redis.RedisCacheImpl;
+import app.cache.memcached.MemCachedImpl;
+import app.cache.redis.RedisCacheImpl;
 
 /**
  * Created by lili19289 on 2016/8/29.

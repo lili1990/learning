@@ -1,4 +1,4 @@
-package app;
+package app.cache;
 
 import app.zookeeper.ConfigureUtil;
 

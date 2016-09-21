@@ -1,4 +1,4 @@
-package app.curator;
+package app.zookeeper.curator;
 
 import app.main.Configure;
 import org.apache.commons.lang3.StringUtils;

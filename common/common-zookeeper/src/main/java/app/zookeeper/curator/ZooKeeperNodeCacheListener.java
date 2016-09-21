@@ -1,4 +1,4 @@
-package app.curator;
+package app.zookeeper.curator;
 
 import org.apache.curator.framework.recipes.cache.NodeCache;
 import org.apache.curator.framework.recipes.cache.NodeCacheListener;

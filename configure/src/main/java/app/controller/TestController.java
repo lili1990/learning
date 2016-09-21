@@ -1,8 +1,7 @@
 package app.controller;
 
 import app.context.RuntimeContext;
-import app.curator.ZooKeeperClient;
-import app.utils.ZookeeperUtil;
+import app.zookeeper.curator.ZooKeeperClient;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,6 @@ public class TestController {
     @RequestMapping("/update")
     public String update(){
         System.out.println("--------------");
-//        ZookeeperUtil.writeData();
         ZooKeeperClient zooKeeperClient= RuntimeContext.getBean(ZooKeeperClient.class);
         zooKeeperClient.setData("/learning","aaaaa");
         if(zooKeeperClient.exists("/learning/config")){

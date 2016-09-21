@@ -1,4 +1,4 @@
-package app.curator;
+package app.zookeeper.curator;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.curator.RetryPolicy;
