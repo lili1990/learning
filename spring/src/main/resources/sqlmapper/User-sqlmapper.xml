@@ -10,5 +10,9 @@
 		where id = #{user_id}
 	</select>
 
+	<select id="fetchUser" resultType="User">
+		select id,user_name,password,age from user where id = #{userId}
+	</select>
+
 
 </mapper>

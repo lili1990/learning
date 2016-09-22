@@ -1,6 +1,7 @@
 package app.controller;
 
 import app.models.User;
+import app.mybatis.Page;
 import app.service.UserService;
 import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,15 @@ public class UserController {
     @RequestMapping(value="/info",method = RequestMethod.GET)
     public void findUser(){
         User user = userService.getUserById(1);
+        System.err.println("--------------************--------------------"+user.getUser_name());
+    }
+
+    @RequestMapping(value="/list",method = RequestMethod.GET)
+    public void fetchUser(){
+        Page page = new Page();
+        page.setPageNo(1);
+        page.setPageSize(10);
+        User user = userService.fetchUsers(1,page);
         System.err.println("--------------************--------------------"+user.getUser_name());
     }
 
