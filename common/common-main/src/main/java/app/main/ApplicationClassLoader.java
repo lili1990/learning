@@ -49,8 +49,8 @@ public class ApplicationClassLoader extends ClassLoader {
             String fileName = current.getPath();
             String classname="";
             if (fileName.endsWith(".class") && !fileName.startsWith(".")) {
-                classname = fileName.substring(fileName.indexOf("classes\\")+8, fileName.length() - 6);
-                classname = classname.replace("\\.class", "").replace("\\", ".");
+                classname = fileName.substring(fileName.indexOf("classes")+8, fileName.length() - 6);
+                classname = classname.replace("\\.class", "").replace("\\", ".").replaceAll("/",".");
                 Class<?> classObject = Class.forName(classname);
                 classes.add(Class.forName(classname));
             }
