@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.ibatis.executor.parameter.ParameterHandler;
@@ -61,9 +62,10 @@ public class PageInterceptor implements Interceptor {
         BoundSql boundSql = delegate.getBoundSql();
         //拿到当前绑定Sql的参数对象，就是我们在调用对应的Mapper映射语句时所传入的参数对象
         Object obj = boundSql.getParameterObject();
+        //从参数中取出Page 对象
+        Page page = (Page)getPage(obj);
         //这里我们简单的通过传入的是Page对象就认定它是需要进行分页操作的。
-        if (obj instanceof Page<?>) {
-            Page<?> page = (Page<?>) obj;
+        if (page != null) {
             //通过反射获取delegate父类BaseStatementHandler的mappedStatement属性
             MappedStatement mappedStatement = (MappedStatement)ReflectUtil.getFieldValue(delegate, "mappedStatement");
             //拦截到的prepare方法参数是一个Connection对象
@@ -71,7 +73,7 @@ public class PageInterceptor implements Interceptor {
             //获取当前要执行的Sql语句，也就是我们直接在Mapper映射语句中写的Sql语句
             String sql = boundSql.getSql();
             //给当前的page参数对象设置总记录数
-            this.setTotalRecord(page,
+            this.setTotalRecord(page,obj,
                     mappedStatement, connection);
             //获取分页Sql语句
             String pageSql = this.getPageSql(page, sql);
@@ -79,6 +81,19 @@ public class PageInterceptor implements Interceptor {
             ReflectUtil.setFieldValue(boundSql, "sql", pageSql);
         }
         return invocation.proceed();
+    }
+
+    public static Object getPage(Object obj){
+        if(obj==null)return null;
+        if(obj instanceof Page)return obj;
+        if(obj instanceof Map){
+            Map params = (Map)obj;
+            for(Object value :  params.values()){
+                if(value instanceof  Page)
+                    return value;
+            }
+        }
+        return null;
     }
 
 
@@ -106,7 +121,7 @@ public class PageInterceptor implements Interceptor {
      */
     private String getPageSql(Page<?> page, String sql) {
         StringBuffer sqlBuffer = new StringBuffer(sql);
-        if ("mysql".equalsIgnoreCase(databaseType)) {
+        if ("mysql".equalsIgnoreCase(databaseType) && !sql.contains("limit")) {
             return getMysqlPageSql(page, sqlBuffer);
         } else if ("oracle".equalsIgnoreCase(databaseType)) {
             return getOraclePageSql(page, sqlBuffer);
@@ -150,11 +165,11 @@ public class PageInterceptor implements Interceptor {
      * @param mappedStatement Mapper映射语句
      * @param connection 当前的数据库连接
      */
-    private void setTotalRecord(Page<?> page,
+    private void setTotalRecord(Page<?> page,Object obj,
                                 MappedStatement mappedStatement, Connection connection) {
         //获取对应的BoundSql，这个BoundSql其实跟我们利用StatementHandler获取到的BoundSql是同一个对象。
         //delegate里面的boundSql也是通过mappedStatement.getBoundSql(paramObj)方法获取到的。
-        BoundSql boundSql = mappedStatement.getBoundSql(page);
+        BoundSql boundSql = mappedStatement.getBoundSql(obj);
         //获取到我们自己写在Mapper映射语句中对应的Sql语句
         String sql = boundSql.getSql();
         //通过查询Sql语句获取到对应的计算总记录数的sql语句
@@ -162,9 +177,9 @@ public class PageInterceptor implements Interceptor {
         //通过BoundSql获取对应的参数映射
         List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
         //利用Configuration、查询记录数的Sql语句countSql、参数映射关系parameterMappings和参数对象page建立查询记录数对应的BoundSql对象。
-        BoundSql countBoundSql = new BoundSql(mappedStatement.getConfiguration(), countSql, parameterMappings, page);
+        BoundSql countBoundSql = new BoundSql(mappedStatement.getConfiguration(), countSql, parameterMappings, obj);
         //通过mappedStatement、参数对象page和BoundSql对象countBoundSql建立一个用于设定参数的ParameterHandler对象
-        ParameterHandler parameterHandler = new DefaultParameterHandler(mappedStatement, page, countBoundSql);
+        ParameterHandler parameterHandler = new DefaultParameterHandler(mappedStatement, obj, countBoundSql);
         //通过connection建立一个countSql对应的PreparedStatement对象。
         PreparedStatement pstmt = null;
         ResultSet rs = null;
