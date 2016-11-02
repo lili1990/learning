@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="app.dao.ArticleTagDao">
+
+
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="ArticleTag">
+        insert into articletag(article_id,tag_id) values(#{article_id},#{tag_id});
+    </insert>
+
+    <insert id="batchSave" useGeneratedKeys="true" parameterType="java.util.List">
+        insert into articletag (article_id,tag_id)
+        values
+        <foreach collection="list" item="item" index="index" separator="," >
+            (#{item.article_id},#{item.tag_id})
+        </foreach>
+    </insert>
+
+
+    <delete id="delete">
+        delete from articletag where id=#{0}
+    </delete>
+
+    <delete id="deleteByTag">
+        delete from articletag where tag_id=#{0}
+    </delete>
+
+    <delete id="deleteByArticle">
+        delete from articletag where article_id=#{0}
+    </delete>
+
+
+
+
+
+
+
+</mapper>

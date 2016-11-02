@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="app.dao.TagDao">
+
+
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="Article">
+        insert into article(title,cover_img,content) values(#{title},#{cover_img},#{content});
+    </insert>
+
+    <select id="findById" resultType="Article">
+        select * from article where id=#{0};
+    </select>
+
+    <select id="fetch" resultType="Article">
+        select * from article
+        <where>
+            <if test="status !=null and status !=0">
+                status = #{status}
+            </if>
+        </where>
+    </select>
+
+
+    <delete id="delete">
+        delete from article where id=#{0};
+    </delete>
+
+    <update id="update" >
+        update article
+        <set>
+            <if test="title !=null and title !=''">
+                title=#{title},
+            </if>
+            <if test="cover_img !=null and cover_img !=''">
+                cover_img=#{cover_img},
+            </if>
+            <if test="content !=null and content !=''">
+                content=#{content},
+            </if>
+        </set>
+        where id =#{id};
+    </update>
+
+    <update id="addClick" >
+        update article set click_count=click_count+1 where id =#{id};
+    </update>
+
+    <update id="addComment" >
+        update article set comment_count=comment_count+1 where id =#{id};
+    </update>
+
+    <update id="addPraise" >
+        update article set praise_count=praise_count+1 where id =#{id};
+    </update>
+
+    <update id="top" >
+        update article set is_top=#{is_top} where id =#{id};
+    </update>
+
+    <update id="publish" >
+        update article set status=1 where id =#{id};
+    </update>
+
+    <update id="logicDelete" >
+        update article set status=2 where id =#{id};
+    </update>
+
+
+
+
+
+</mapper>

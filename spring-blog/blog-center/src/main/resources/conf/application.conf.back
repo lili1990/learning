@@ -1,0 +1,9 @@
+http.port=9100
+
+
+application.log.path=/conf/log4j.properties
+
+
+
+zookeeper.connectString=localhost:2181
+zookeeper.basePath=/bbs

@@ -1,0 +1,40 @@
+
+    <div class="avatar"><a href="about.html"><span>关于我</span></a></div>
+    <div class="topspaceinfo">
+        <h1>虽千万人吾往矣</h1>
+        <p>不怕万人阻挡，就怕自己投降....</p>
+    </div>
+    <div class="about_c">
+        <p>网名：记忆、淡忘	</p>
+        <p>职业：JAVA程序员 </p>
+        <p>籍贯：山东-临沂</p>
+        <p>电话：15653925855</p>
+        <p>邮箱：电话：15653925855@163.com</p>
+    </div>
+    <div class="bdsharebuttonbox bdshare-button-style1-32" data-bd-bind="1477668715166">
+        <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+        <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+        <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+        <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+        <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+        <a href="#" class="bds_more" data-cmd="more"></a>
+    </div>
+    <div class="tj_news" >
+        <h2><p class="tj_t1">最新文章</p></h2>
+        <ul ng-controller="latestBlogController">
+            <li ng-repeat='blog in latestBlogs'><a href="/">{{blog.title}}</a></li>
+        </ul>
+        <h2><p class="tj_t2">热门推荐</p></h2>
+        <ul ng-controller="hotBlogController">
+            <li ng-repeat='blog in hotBlogs'><a href="/">{{blog.title}}</a></li>
+        </ul>
+        <div class="links">
+            <h2><p>友情链接</p></h2>
+            <ul>
+                <li><a href="/">暂无其他友情链接</a></li>
+            </ul>
+        </div>
+        <div class="copyright">
+            <ul><p> Design by <a href="/">lili1990</a></p><p>XICP备XXXXXX号-X@2016</p><p></p></ul>
+        </div>
+    </div>

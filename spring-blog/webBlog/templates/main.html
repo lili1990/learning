@@ -1,0 +1,34 @@
+
+
+
+    <div class="banner">
+        <ul class="texts">
+            <p>The best life is use of willing attitude, a happy-go-lucky life. </p>
+            <p>最好的生活是用心甘情愿的态度，过随遇而安的生活。</p>
+        </ul>
+    </div>
+    <div class="bloglist" >
+        <h2>
+            <p><span>置顶</span>文章</p>
+        </h2>
+        <div class="blogs" ng-repeat="blog in blogs">
+            <h3><a href="/article/{{blog.id}}">{{blog.title}}</a></h3>
+            <figure>
+                <img src="{{blog.cover_img}}">
+            </figure>
+            <ul>
+                <p>
+                    看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。
+                    人生其实就是不断犯错的过程，在这个过程中不断的犯错，不断的吸取教训，不断的成长。
+                    也许日子里的惊涛骇浪，不过是人生中的水花摇晃，别用显微镜放大你的悲伤。
+                </p>
+                <a href="/" target="_blank" class="readmore">阅读全文&gt;&gt;</a>
+            </ul>
+            <p class="autor">
+                <span>分类：【<a href="/">{{blog.catlog}}</a>】</span>
+                <span>浏览（<a href="/">{{blog.click_count}}</a>）</span>
+                <span>评论（<a href="/">{{blog.comment_count}}</a>）</span>
+            </p>
+            <div class="dateview">{{blog.create_time|date:'yyyy-MM-dd'}} {{ blog.create_time | date:'yyyy-MM-dd' }}</div>
+        </div>
+    </div>

@@ -1,0 +1,51 @@
+
+
+
+
+
+<div class="ibody">
+    <header>
+        <h1>如影随形</h1>
+        <h2>影子是一个会撒谎的精灵，它在虚空中流浪和等待被发现之间;在存在与不存在之间....</h2>
+        <div class="logo"><a href="/"></a></div>
+        <nav id="topnav" ng-controller="navaCtroller">
+
+            <a ng-repeat="catalog in catalogs" ng-click="selectCatalog($index)" ng-class="{'current': $index==catalogIndex}" >{{catalog.title}}</a>
+            <!--<a ng-click="selectAbout($index)"ng-class="{'current': 6==catalogIndex}">关于我</a>-->
+        </nav>
+    </header>
+    <article ui-view="main"></article>
+    <aside >
+        <div class="avatar"><a href="about.html"><span>关于我</span></a></div>
+        <div class="topspaceinfo">
+            <h1>虽千万人吾往矣</h1>
+            <p>不怕万人阻挡，就怕自己投降....</p>
+        </div>
+        <div class="about_c">
+            <p>网名：记忆、淡忘	</p>
+            <p>职业：JAVA程序员 </p>
+            <p>籍贯：山东-临沂</p>
+            <p>电话：15653925855</p>
+            <p>邮箱：电话：15653925855@163.com</p>
+        </div>
+        <div class="tj_news" >
+            <h2><p class="tj_t1">最新文章</p></h2>
+            <ul >
+                <li ng-repeat='blog in latestBlogs'><a href="/">{{blog.title}}</a></li>
+            </ul>
+            <h2><p class="tj_t2">热门推荐</p></h2>
+            <ul >
+                <li ng-repeat='blog in hotBlogs'><a href="/">{{blog.title}}</a></li>
+            </ul>
+            <div class="links">
+                <h2><p>友情链接</p></h2>
+                <ul>
+                    <li><a href="/">暂无其他友情链接</a></li>
+                </ul>
+            </div>
+            <div class="copyright">
+                <ul><p> Design by <a href="/">lili1990</a></p><p>XICP备XXXXXX号-X@2016</p><p></p></ul>
+            </div>
+        </div>
+    </aside>
+</div>
