@@ -8,6 +8,8 @@ import app.mybatis.Page;
  */
 public interface UserService {
 
+    public User getUser(String username,String password);
+
     public User getUserById(long userId);
 
     public User fetchUsers(long userId,Page page);

@@ -1,7 +1,8 @@
-package app.service.impl;
+package app.service;
 
 import app.dao.UserDao;
 import app.models.User;
+import app.mybatis.Page;
 import app.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,10 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     public User getUserById(long userId) {
-        return this.userDao.findById(userId);
+        return userDao.findById(userId);
+    }
+
+    public User fetchUsers(long userId,Page page) {
+        return userDao.fetchUser(userId,page);
     }
 }

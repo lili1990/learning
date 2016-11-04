@@ -19,6 +19,12 @@ public class UserController {
     @Resource
     private UserService userService;
 
+    @RequestMapping(value="/login",method = RequestMethod.GET)
+    public void login(){
+        User user = userService.getUserById(1);
+        System.err.println("--------------************--------------------"+user.getUser_name());
+    }
+
     @RequestMapping(value="/info",method = RequestMethod.GET)
     public void findUser(){
         User user = userService.getUserById(1);

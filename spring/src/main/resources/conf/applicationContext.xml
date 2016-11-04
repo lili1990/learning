@@ -21,6 +21,8 @@
 
 	<bean class="app.jobs.StartUp"/>
 
+	<bean class="app.models.User"/>
+
 	<!-- 注册获取ApplicationContext -->
 	<bean class='app.context.RuntimeContext$SpringContext' factory-method='getInstance' />
 

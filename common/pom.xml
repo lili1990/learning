@@ -22,6 +22,8 @@
         <module>common-jobs</module>
         <module>common-utils</module>
         <module>common-aspect</module>
+        <module>common-interceptor</module>
+        <module>common-mybatis</module>
     </modules>
 
 

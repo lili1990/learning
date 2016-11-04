@@ -22,7 +22,7 @@
     
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="app.dao" />
-        <property name="markerInterface" value="app.dao.DAOBase" />
+        <property name="markerInterface" value="app.dao.BaseDao" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
 
