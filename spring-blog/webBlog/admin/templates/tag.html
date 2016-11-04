@@ -1,0 +1,52 @@
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>标签</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <input type="text" placeholder="请输入关键词" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary"> 搜索</button> </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>ID</th>
+                                        <th>名称</th>
+                                        <th>别名</th>
+                                        <th>日期</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="tag in tags ">
+                                        <td>
+                                            <input type="checkbox"  class="i-checks" name="input[]">
+                                        </td>
+                                        <td>{{tag.id}}</td>
+                                        <td><span class="pie">{{tag.title}}</span>
+                                        </td>
+                                        <td>{{tag.alias_name}}</td>
+                                        <td>{{tag.create_time|date:'yyyy-MM-dd'}}</td>
+                                        <td><a ng-click="deleteTag(tag.id)"><i class="fa fa-trash-o"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>

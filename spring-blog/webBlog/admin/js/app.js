@@ -1,0 +1,39 @@
+'use strict';
+
+var admin = angular.module('admin', ['ui.router', 'adminControllers', 'adminServices']);
+
+var adminServices = angular.module('adminControllers', []);
+var adminControllers = angular.module('adminServices', []);
+
+var options = {};
+options.api = {};
+options.api.base_url = "http://localhost:63342";
+
+
+
+admin.config(function ($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise("/index");
+
+    $stateProvider
+        .state('index', {
+            url: '/index',
+            views: {
+                '': {templateUrl: 'templates/index.html',controller:"homeCtrl"}
+            }
+
+        })
+        .state('tag', {
+            url: '/tag',
+            views: {
+                '': {templateUrl: 'templates/tag.html',controller:"tagCtrl"}
+            }
+        })
+        .state('article', {
+            url: '/article',
+            views: {
+                '': {templateUrl: 'templates/article.html'}
+            }
+        });
+
+
+});
