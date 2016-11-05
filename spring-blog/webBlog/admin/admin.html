@@ -34,6 +34,12 @@
                 <li>
                     <a  href="#/article"><i class="fa fa-edit"></i><span class="nav-label">博客</span></a>
                 </li>
+                <li>
+                    <a  href="#/draft"><i class="fa fa-file-text-o"></i><span class="nav-label">草稿箱</span></a>
+                </li>
+                <li>
+                    <a  href="#/create"><i class="fa fa-edit"></i><span class="nav-label">写博客</span></a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -49,9 +55,13 @@
             <a href="login.html" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
         </div>
         <div class="row J_mainContent" id="content-main" >
-
-            <div ui-view ></div>
-
+            <div class="wrapper wrapper-content">
+                <div class="row" >
+                    <div class="col-sm-12 animated fadeInRight" >
+                        <div ui-view ></div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="footer">
             <div class="pull-right">&copy; 2014-2015 <a href="http://www.zi-han.net/" target="_blank">lili's blog</a>

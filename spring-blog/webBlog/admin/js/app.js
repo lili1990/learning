@@ -20,7 +20,6 @@ admin.config(function ($stateProvider, $urlRouterProvider) {
             views: {
                 '': {templateUrl: 'templates/index.html',controller:"homeCtrl"}
             }
-
         })
         .state('tag', {
             url: '/tag',
@@ -31,9 +30,22 @@ admin.config(function ($stateProvider, $urlRouterProvider) {
         .state('article', {
             url: '/article',
             views: {
-                '': {templateUrl: 'templates/article.html'}
+                '': {templateUrl: 'templates/article_list.html'}
+            }
+        })
+        .state('draft', {
+            url: '/draft',
+            views: {
+                '': {templateUrl: 'templates/article_draft.html'}
+            }
+        })
+        .state('create', {
+            url: '/create',
+            views: {
+                '': {templateUrl: 'templates/article_create.html'}
             }
         });
 
 
 });
+
