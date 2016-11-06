@@ -42,8 +42,14 @@ admin.config(function ($stateProvider, $urlRouterProvider) {
         .state('create', {
             url: '/create',
             views: {
-                '': {templateUrl: 'templates/article_create.html'}
+                '': {templateUrl: 'templates/article_create.html',controller:"BlogCreateCtrl"}
             }
+        })
+        .state('createMark', {
+              url: '/createMark',
+              views: {
+                  '': {templateUrl: 'templates/article_createMark.html',controller:"BlogCreateCtrl"}
+              }
         });
 
 

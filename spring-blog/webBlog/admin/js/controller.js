@@ -38,6 +38,7 @@ adminControllers.controller('tagCtrl', ['$scope', '$rootScope', 'TagService',
     }
 ]);
 
+//博客列表
 adminControllers.controller('BlogCatalogCtrl', ['$scope', '$stateParams', 'BlogService',
     function BlogCatalogCtrl($scope, $stateParams, BlogService) {
 
@@ -61,6 +62,51 @@ adminControllers.controller('BlogCatalogCtrl', ['$scope', '$stateParams', 'BlogS
     }
 ]);
 
+
+//博客列表
+adminControllers.controller('BlogCatalogCtrl', ['$scope', '$stateParams', 'BlogService',
+    function BlogCatalogCtrl($scope, $stateParams, BlogService) {
+
+        $scope.blogs = [];
+        var catalogName = $stateParams.catalogName;
+
+        BlogService.findTest().success(function(data) {
+            $scope.blogs = data.blogs;
+        }).error(function(data, status) {
+            console.log(status);
+            console.log(data);
+        });
+
+        //BlogService.findByCatalog(catalogName).success(function(data) {
+        //    //$scope.blogs = data;
+        //}).error(function(status, data) {
+        //    console.log(status);
+        //    console.log(data);
+        //});
+
+    }
+]);
+
+
+//博客编辑
+adminControllers.controller('BlogCreateCtrl', ['$scope', '$stateParams', 'TagService',
+    function BlogCatalogCtrl($scope, $stateParams, TagService) {
+
+        $scope.tags = [];
+        $scope.catalogs = [];
+
+        TagService.findTest().success(function(data) {
+            $scope.tags = data.tags;
+            $scope.catalogs =data.tags;
+        }).error(function(data, status) {
+            console.log(status);
+            console.log(data);
+        });
+
+
+
+    }
+]);
 
 
 

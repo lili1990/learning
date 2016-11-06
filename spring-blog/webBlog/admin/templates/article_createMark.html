@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown 编辑页面</title>
+    <link rel="stylesheet" href="../js/plugin/editor.md/css/editormd.css" />
+</head>
+
+<body >
+    <div>
+
+        <h3>欢迎使用 H+</h3>
+
+        <div class="editormd" id="artcile-editormd" >
+            <script type="text/markdown">###Hello world!</script>
+        </div>
+    </div>
+</body>
+<script src="../js/plugin/jquery.min.js?v=2.1.4"></script>
+<script src="../js/plugin/editor.md/editormd.js"></script>
+<script type="text/javascript">
+    $(function() {
+        var testEditor = editormd("artcile-editormd", {
+                width   : "95%",
+                height  : 640,
+                syncScrolling : "single",
+                path : '../js/plugin/editor.md/lib/'
+        });
+    });
+</script>
+<!-- Mirrored from www.zi-han.net/theme/hplus/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:18:23 GMT -->
+</html>
