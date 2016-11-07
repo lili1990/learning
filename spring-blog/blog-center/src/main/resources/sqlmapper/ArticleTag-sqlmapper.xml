@@ -30,11 +30,12 @@
     </delete>
 
     <select id="fetchByArticleId" resultType="Tag">
-        select t.id,t.name,t.alias_name from tag t,article_tag at where t.id=at.tag_id and at.article_id = #{0};
+        select t.id,t.name,t.alias_name from tag t,articletag at where t.id=at.tag_id and at.article_id = #{0};
     </select>
 
     <select id="fetchByTagId" resultType="Tag">
-        select a.id,a.title,a.cover_img,a.description,a.content,a.click_count,a.comment_count from article a,article at
+        select a.id,a.title,a.cover_img,a.description,a.content,a.click_count,a.comment_count
+        from article a,articletag at
          where a.id=at.article_id and a.status =1 and at.tag_id = #{0};
     </select>
 

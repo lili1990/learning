@@ -30,6 +30,14 @@
     </delete>
 
 
+    <select id="fetchArticlesByCatalogId" resultType="Article">
+        select a.id,a.title,a.cover_img,a.description,a.content,a.click_count,a.comment_count
+        from article a,articlecatalog ac
+        where a.id=ac.article_id and a.status =1 and ac.catalog_id = #{0};
+
+    </select>
+
+
 
 
 

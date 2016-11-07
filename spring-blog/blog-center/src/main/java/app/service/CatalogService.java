@@ -3,5 +3,5 @@ package app.service;
 /**
  * Created by sdlili on 16-10-29.
  */
-public interface CatalogService {
+public interface CatalogService extends BaseService{
 }
