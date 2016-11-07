@@ -28,8 +28,6 @@ adminServices.factory('TagService', function($http) {
 
 adminServices.factory('BlogService', function($http) {
     return {
-
-
         findAll: function() {
             return $http.get(options.api.base_url + '/blog/all');
         },
@@ -38,7 +36,7 @@ adminServices.factory('BlogService', function($http) {
             return $http.delete(options.api.base_url + '/blog/delete' + id);
         },
 
-        create: function(post) {
+        create: function(article) {
             return $http.post(options.api.base_url + '/blog', {'post': post});
         },
 

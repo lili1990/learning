@@ -89,9 +89,8 @@ adminControllers.controller('BlogCatalogCtrl', ['$scope', '$stateParams', 'BlogS
 
 
 //博客编辑
-adminControllers.controller('BlogCreateCtrl', ['$scope', '$stateParams', 'TagService',
-    function BlogCatalogCtrl($scope, $stateParams, TagService) {
-
+adminControllers.controller('BlogCreateCtrl', ['$scope', '$stateParams', 'TagService','BlogService',
+    function BlogCatalogCtrl($scope, $stateParams, TagService,BlogService) {
         $scope.tags = [];
         $scope.catalogs = [];
 
@@ -102,6 +101,25 @@ adminControllers.controller('BlogCreateCtrl', ['$scope', '$stateParams', 'TagSer
             console.log(status);
             console.log(data);
         });
+
+        $scope.saveArticle = function(){
+            var article = new Object();
+            //var catalogId, tags=[];
+            $('input:radio[name=catalog]:checked').each(function(){
+                article.catalogId = $(this).val();
+            });
+            $('input[name="tag"]:checked').each(function(){
+                article.tags.push($(this).val());
+            });
+            article.article_content=$("#editor").val();
+            console.log(article.article_content);
+            BlogService.creat(article).success(function(){
+                layer.mgs("保存成功");
+            }).error(function(){
+                layer.mgs("保存失败");
+            })
+
+        }
 
 
 
