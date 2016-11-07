@@ -19,9 +19,6 @@
 	<import resource="applicationContext-dao.xml" />
 	<import resource="spring-mvc.xml" />
 
-	<bean class="app.jobs.StartUp"/>
-
-	<bean class="app.models.User"/>
 
 	<!-- 注册获取ApplicationContext -->
 	<bean class='app.context.RuntimeContext$SpringContext' factory-method='getInstance' />
@@ -34,7 +31,7 @@
 	<bean id="zkConfigLoader" class="app.zookeeper.ConfigureLoader" init-method="initConfgure" />
 
 
-	<bean class="app.configure.SwaggerConfig" />
+	<!--<bean class="app.configure.SwaggerConfig" />-->
 
 
 

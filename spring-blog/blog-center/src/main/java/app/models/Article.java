@@ -10,6 +10,8 @@ public class Article extends BaseModel {
 
     public String cover_img;
 
+    public String description;
+
     public String content;
 
     public int click_count;
@@ -20,7 +22,7 @@ public class Article extends BaseModel {
 
     public boolean is_top;//是否置顶
 
-    public int status;//0-草稿 ；1-发布；2-垃圾箱
+    public int status=0;//0-草稿 ；1-发布；2-垃圾箱
 
 
     public String getTitle() {
@@ -37,6 +39,14 @@ public class Article extends BaseModel {
 
     public void setCover_img(String cover_img) {
         this.cover_img = cover_img;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getContent() {
@@ -77,5 +87,13 @@ public class Article extends BaseModel {
 
     public void setIs_top(boolean is_top) {
         this.is_top = is_top;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

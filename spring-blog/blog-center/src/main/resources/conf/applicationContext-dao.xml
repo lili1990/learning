@@ -18,7 +18,7 @@
         <property name="dataSource" ref="dataSource" />
          <property name="configLocation" value="classpath:/conf/mybatis-config.xml" />
         <property name="typeAliasesPackage" value="app.models" />
-        <property name="mapperLocations" value="classpath:sqlmapper/User-sqlmapper.xml" />
+        <property name="mapperLocations" value="classpath:sqlmapper/*-sqlmapper.xml" />
     </bean>
     
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
