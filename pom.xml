@@ -15,7 +15,7 @@
     <module>learning-spring</module>
     <module>spring</module>
     <module>configure</module>
-      <module>blog</module>
+    <module>spring-blog</module>
   </modules>
 
 
