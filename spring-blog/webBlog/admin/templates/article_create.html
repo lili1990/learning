@@ -20,7 +20,7 @@
                 <label class="col-sm-1 control-label">分类</label>
                 <div class="col-sm-8" id="catalogs">
                     <label ng-repeat="catalog in catalogs" style="padding-left:8px">
-                        <input  name="catalog" type="radio" value="{{catalog.id}}" />{{catalog.alias_name}}
+                        <input  name="catalog" type="radio" value="{{catalog.id}}" />{{catalog.name}}
                     </label>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                 <label class="col-sm-1 control-label">标签</label>
                 <div class="col-sm-8"  id="tags">
                     <label ng-repeat="tag in tags" style="padding-left:8px">
-                        <input  name="tag" type="checkbox" value="{{tag.id}}" />{{tag.title}}
+                        <input  name="tag" type="checkbox" value="{{tag.id}}" />{{tag.name}}
                     </label>
                 </div>
             </div>

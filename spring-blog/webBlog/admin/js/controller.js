@@ -13,8 +13,8 @@ adminControllers.controller('tagCtrl', ['$scope', '$rootScope', 'TagService',
 
         $scope.tags = [];
 
-        TagService.findTest().success(function(data) {
-            $scope.tags = data.tags;
+        TagService.findAll().success(function(data) {
+            $scope.tags = data.list;
         }).error(function(data, status) {
             console.log(status);
             console.log(data);
@@ -46,7 +46,7 @@ adminControllers.controller('BlogCatalogCtrl', ['$scope', '$stateParams', 'BlogS
         var catalogName = $stateParams.catalogName;
 
         BlogService.findTest().success(function(data) {
-            $scope.blogs = data.blogs;
+            $scope.blogs = data.list;
         }).error(function(data, status) {
             console.log(status);
             console.log(data);
@@ -71,7 +71,7 @@ adminControllers.controller('BlogCatalogCtrl', ['$scope', '$stateParams', 'BlogS
         var catalogName = $stateParams.catalogName;
 
         BlogService.findTest().success(function(data) {
-            $scope.blogs = data.blogs;
+            $scope.blogs = data.list;
         }).error(function(data, status) {
             console.log(status);
             console.log(data);
@@ -88,15 +88,22 @@ adminControllers.controller('BlogCatalogCtrl', ['$scope', '$stateParams', 'BlogS
 ]);
 
 
-//博客编辑
-adminControllers.controller('BlogCreateCtrl', ['$scope', '$stateParams', 'TagService','BlogService',
-    function BlogCatalogCtrl($scope, $stateParams, TagService,BlogService) {
+//博客编辑(普通编辑器)
+adminControllers.controller('BlogCreateCtrl', ['$scope', '$stateParams', 'TagService','BlogService','CatalogService',
+    function BlogCatalogCtrl($scope, $stateParams, TagService,BlogService,CatalogService) {
         $scope.tags = [];
         $scope.catalogs = [];
 
-        TagService.findTest().success(function(data) {
-            $scope.tags = data.tags;
-            $scope.catalogs =data.tags;
+        TagService.findAll().success(function(data) {
+            $scope.tags = data.list;
+            $scope.catalogs =data.list;
+        }).error(function(data, status) {
+            console.log(status);
+            console.log(data);
+        });
+
+        CatalogService.findAll().success(function(data) {
+            $scope.catalogs =data.list;
         }).error(function(data, status) {
             console.log(status);
             console.log(data);

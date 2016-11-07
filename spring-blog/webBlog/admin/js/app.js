@@ -7,7 +7,7 @@ var adminControllers = angular.module('adminServices', []);
 
 var options = {};
 options.api = {};
-options.api.base_url = "http://localhost:63342";
+options.api.base_url = "http://localhost:9100";
 
 
 

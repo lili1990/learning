@@ -18,6 +18,10 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserDao userDao;
 
+    public User getUser(String username, String password) {
+        return null;
+    }
+
     public User getUserById(long userId) {
         return userDao.findById(userId);
     }

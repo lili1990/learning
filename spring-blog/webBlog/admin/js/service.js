@@ -10,7 +10,7 @@ adminServices.factory('TagService', function($http) {
             return $http.get('data/tag.json');
         },
         findAll: function() {
-            return $http.get(options.api.base_url + '/tag/all');
+            return $http.get(options.api.base_url + '/tag/list');
         },
         add:function(tag) {
             return $http.get(options.api.base_url + '/tag/add',{'tag':tag});
@@ -20,6 +20,27 @@ adminServices.factory('TagService', function($http) {
         },
         deleteTag : function() {
              return $http.get(options.api.base_url + '/tag/delete',{'id':id});
+        }
+
+    };
+});
+
+adminServices.factory('CatalogService', function($http) {
+    return {
+        findTest : function(){
+            return $http.get('data/tag.json');
+        },
+        findAll: function() {
+            return $http.get(options.api.base_url + '/catalog/list');
+        },
+        add:function(tag) {
+            return $http.get(options.api.base_url + '/catalog/add',{'tag':tag});
+        },
+        edit:function(tag) {
+            return $http.get(options.api.base_url + '/catalog/edit',{'tag':tag});
+        },
+        deleteTag : function() {
+             return $http.get(options.api.base_url + '/catalog/delete',{'id':id});
         }
 
     };
