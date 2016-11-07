@@ -7,10 +7,9 @@ import app.mybatis.Page;
 import app.service.ArticleTagService;
 import app.service.TagService;
 import app.vo.ResultVO;
+import io.swagger.annotations.ApiParam;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -18,8 +17,8 @@ import java.util.List;
 /**
  * Created by lili19289 on 2016/11/7.
  */
-@Controller
-@RequestMapping("/article")
+@RestController
+@RequestMapping("/tag")
 public class TagController {
 
     @Resource
@@ -29,24 +28,24 @@ public class TagController {
     private ArticleTagService articleTagService;
 
 
-    @RequestMapping("/add")
-    public Long  addTag(Tag tag){
+    @RequestMapping(value="/add",method= RequestMethod.POST)
+    public Long  addTag(@ApiParam @RequestBody Tag tag){
        return tagService.save(tag);
     }
 
-    @RequestMapping("/delete")
+    @RequestMapping(value="/delete",method= RequestMethod.DELETE)
     public void  deleteTag(Long tagId){
          tagService.delete(tagId);
     }
 
-    @RequestMapping("/article")
+    @RequestMapping(value="/article/{articleId}",method= RequestMethod.GET)
     public String  fetchTagsByArticle(Long articleId){
-        List<Tag> tags = tagService.fetch();
+        List<Tag> tags = articleTagService.fetchByArticleId(articleId);
         return ResultVO.succeed(tags);
     }
 
     @ResponseBody
-    @RequestMapping("/list")
+    @RequestMapping(value="/list",method= RequestMethod.GET)
     public String  addTag(Page page){
         List<Tag> tags = tagService.fetch(page);
         return ResultVO.succeed(tags);
