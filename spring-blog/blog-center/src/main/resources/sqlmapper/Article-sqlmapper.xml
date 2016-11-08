@@ -5,20 +5,11 @@
 
 
     <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="Article">
-        insert into article(title,cover_img,content) values(#{title},#{cover_img},#{content});
+        insert into article(title,cover_img,description,content) values(#{title},#{cover_img},#{description},#{content});
     </insert>
 
     <select id="findById" resultType="Article">
         select * from article where id=#{0};
-    </select>
-
-    <select id="fetch" resultType="Article">
-        select * from article
-        <where>
-            <if test="status !=null and status !=0">
-                status = #{status}
-            </if>
-        </where>
     </select>
 
 
@@ -65,6 +56,28 @@
     <update id="logicDelete" >
         update article set status=2 where id =#{id};
     </update>
+
+    <select id="fetch" resultType="Article">
+        select * from article
+        <where>
+            <if test="status !=null and status !=0">
+                status = #{status}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="fetchTop" resultType="Article">
+        select * from article where is_top =1 order by lastmodifytime;
+    </select>
+
+    <select id="fetchLatest" resultType="Article">
+        select * from article  order by lastmodifytime;
+    </select>
+
+    <select id="fetchHot" resultType="Article">
+        select * from article  order by click_count;
+    </select>
 
 
 

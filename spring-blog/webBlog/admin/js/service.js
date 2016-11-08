@@ -50,27 +50,33 @@ adminServices.factory('CatalogService', function($http) {
 adminServices.factory('BlogService', function($http) {
     return {
         findAll: function() {
-            return $http.get(options.api.base_url + '/blog/all');
+            return $http.get(options.api.base_url + '/article/list');
         },
 
         delete: function(id) {
-            return $http.delete(options.api.base_url + '/blog/delete' + id);
+            return $http.delete(options.api.base_url + '/article/delete' + id);
         },
 
         create: function(article) {
-            return $http.post(options.api.base_url + '/blog', {'post': post});
+            $http({
+                method : "post",
+                url : options.api.base_url + '/article/add',
+                data : $.param(article),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+            })
+
         },
 
         update: function(post) {
-            return $http.put(options.api.base_url + '/blog', {'post': post});
+            return $http.put(options.api.base_url + '/article/edit', {'article': article});
         },
 
         like: function(id) {
-            return $http.post(options.api.base_url  + '/blog/like', {'id': id});
+            return $http.post(options.api.base_url  + '/article/like', {'id': id});
         },
 
         unlike: function(id) {
-            return $http.post(options.api.base_url  + '/blog/unlike', {'id': id});
+            return $http.post(options.api.base_url  + '/article/unlike', {'id': id});
         }
     };
 });

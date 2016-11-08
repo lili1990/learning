@@ -96,7 +96,6 @@ adminControllers.controller('BlogCreateCtrl', ['$scope', '$stateParams', 'TagSer
 
         TagService.findAll().success(function(data) {
             $scope.tags = data.list;
-            $scope.catalogs =data.list;
         }).error(function(data, status) {
             console.log(status);
             console.log(data);
@@ -111,16 +110,16 @@ adminControllers.controller('BlogCreateCtrl', ['$scope', '$stateParams', 'TagSer
 
         $scope.saveArticle = function(){
             var article = new Object();
-            //var catalogId, tags=[];
+            var catalogId=null,tags=[];
+            article.title=$("#title").val();
             $('input:radio[name=catalog]:checked').each(function(){
-                article.catalogId = $(this).val();
+                catalogId = $(this).val();
             });
             $('input[name="tag"]:checked').each(function(){
-                article.tags.push($(this).val());
+                tags.push($(this).val());
             });
-            article.article_content=$("#editor").val();
-            console.log(article.article_content);
-            BlogService.creat(article).success(function(){
+            article.content=$("#editor").val();
+            BlogService.create(article).success(function(){
                 layer.mgs("保存成功");
             }).error(function(){
                 layer.mgs("保存失败");

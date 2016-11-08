@@ -1,5 +1,10 @@
 package app.service;
 
+import app.models.Article;
+import app.mybatis.Page;
+
+import java.util.List;
+
 /**
  * Created by sdlili on 16-10-29.
  */
@@ -16,6 +21,12 @@ public interface ArticleService extends BaseService{
     public void publish(Long id);
 
     public void logicDelete(Long id);
+
+    public List<Article> fetchTop(Page page);
+
+    public List<Article> fetchLatest(Page page);
+
+    public List<Article> fetchHot(Page page);
 
 
 }

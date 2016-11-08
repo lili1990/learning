@@ -1,5 +1,10 @@
 package app.dao;
 
+import app.models.Article;
+import app.mybatis.Page;
+
+import java.util.List;
+
 /**
  * Created by sdlili on 16-10-29.
  */
@@ -17,5 +22,11 @@ public interface ArticleDao extends BaseDao {
     public void publish(Long id);
 
     public void logicDelete(Long id);
+
+    public List<Article> fetchTop(Page page);//查询置顶文章
+
+    public List<Article> fetchLatest(Page page);//最新文章
+
+    public List<Article> fetchHot(Page page);//获取最新文章
 
 }

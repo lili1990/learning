@@ -1,9 +1,11 @@
 package app.models;
 
+import java.io.Serializable;
+
 /**
  * Created by lili19289 on 2016/8/4.
  */
-public class BaseModel {
+public class BaseModel implements Serializable {
 
 
     public long id;

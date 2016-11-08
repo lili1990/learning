@@ -3,10 +3,12 @@ package app.service.impl;
 import app.dao.ArticleDao;
 import app.dao.BaseDao;
 import app.models.Article;
+import app.mybatis.Page;
 import app.service.ArticleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by sdlili on 16-10-29.
@@ -43,6 +45,18 @@ public class ArticleServiceImpl extends BaseServiceImpl implements ArticleServic
 
     public void logicDelete(Long id){
         articleDao.logicDelete(id);
+    }
+
+    public List<Article> fetchTop(Page page){
+       return  articleDao.fetchTop(page);
+    }
+
+    public List<Article> fetchLatest(Page page){
+        return  articleDao.fetchLatest(page);
+    }
+
+    public List<Article> fetchHot(Page page){
+        return  articleDao.fetchHot(page);
     }
 
 }
