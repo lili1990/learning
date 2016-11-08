@@ -1,4 +1,4 @@
-package app.vo;
+package app.models.responseVO;
 
 import app.main.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -47,7 +47,7 @@ public class ResultVO {
         try {
             return mapper.writeValueAsString(vo);
         } catch (IOException e) {
-            Logger.info("vo failed : " + e.getMessage());
+            Logger.info("responseVO failed : " + e.getMessage());
             return null;
         }
     }
@@ -59,7 +59,7 @@ public class ResultVO {
         try {
             return mapper.writeValueAsString(vo);
         } catch (IOException e) {
-            Logger.info("vo failed : " + e.getMessage());
+            Logger.info("responseVO failed : " + e.getMessage());
             return null;
         }
     }
@@ -72,7 +72,7 @@ public class ResultVO {
         try {
             return mapper.writeValueAsString(vo);
         } catch (IOException e) {
-            Logger.info("vo failed : " + e.getMessage());
+            Logger.info("responseVO failed : " + e.getMessage());
             return null;
         }
     }
@@ -85,7 +85,7 @@ public class ResultVO {
         try {
             return mapper.writeValueAsString(vo);
         } catch (IOException e) {
-            Logger.info("vo failed : " + e.getMessage());
+            Logger.info("responseVO failed : " + e.getMessage());
             return null;
         }
     }
@@ -97,7 +97,7 @@ public class ResultVO {
         try {
             return mapper.writeValueAsString(vo);
         } catch (IOException e) {
-            Logger.info("vo failed : " + e.getMessage());
+            Logger.info("responseVO failed : " + e.getMessage());
             return null;
         }
     }

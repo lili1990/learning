@@ -28,5 +28,6 @@ public interface ArticleService extends BaseService{
 
     public List<Article> fetchHot(Page page);
 
+    public List<Article> fetchByStatus(int status,Page page);
 
 }

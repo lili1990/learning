@@ -1,14 +1,11 @@
 package app.controller;
 
-import app.dao.ArticleTagDao;
-import app.dao.TagDao;
 import app.models.Tag;
 import app.mybatis.Page;
 import app.service.ArticleTagService;
 import app.service.TagService;
-import app.vo.ResultVO;
+import app.models.responseVO.ResultVO;
 import io.swagger.annotations.ApiParam;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;

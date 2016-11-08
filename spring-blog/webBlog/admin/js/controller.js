@@ -39,25 +39,17 @@ adminControllers.controller('tagCtrl', ['$scope', '$rootScope', 'TagService',
 ]);
 
 //博客列表
-adminControllers.controller('BlogCatalogCtrl', ['$scope', '$stateParams', 'BlogService',
-    function BlogCatalogCtrl($scope, $stateParams, BlogService) {
-
-        $scope.blogs = [];
-        var catalogName = $stateParams.catalogName;
-
-        BlogService.findTest().success(function(data) {
-            $scope.blogs = data.list;
-        }).error(function(data, status) {
+adminControllers.controller('ArticleCtrl', ['$scope', '$stateParams', 'BlogService',
+    function ArticleCtrl($scope, $stateParams, BlogService) {
+        $scope.articles = [];
+        var status = $stateParams.status;
+        BlogService.findByStatus(status,pageNo,pageSize).success(function(data) {
+            $scope.articles = data.list;
+        }).error(function(status, data) {
             console.log(status);
             console.log(data);
         });
 
-        //BlogService.findByCatalog(catalogName).success(function(data) {
-        //    //$scope.blogs = data;
-        //}).error(function(status, data) {
-        //    console.log(status);
-        //    console.log(data);
-        //});
 
     }
 ]);
@@ -68,21 +60,14 @@ adminControllers.controller('BlogCatalogCtrl', ['$scope', '$stateParams', 'BlogS
     function BlogCatalogCtrl($scope, $stateParams, BlogService) {
 
         $scope.blogs = [];
-        var catalogName = $stateParams.catalogName;
+        var status = $stateParams.status;
 
-        BlogService.findTest().success(function(data) {
+        BlogService.findByStatus(status).success(function(data) {
             $scope.blogs = data.list;
-        }).error(function(data, status) {
+        }).error(function(status, data) {
             console.log(status);
             console.log(data);
         });
-
-        //BlogService.findByCatalog(catalogName).success(function(data) {
-        //    //$scope.blogs = data;
-        //}).error(function(status, data) {
-        //    console.log(status);
-        //    console.log(data);
-        //});
 
     }
 ]);
@@ -108,18 +93,41 @@ adminControllers.controller('BlogCreateCtrl', ['$scope', '$stateParams', 'TagSer
             console.log(data);
         });
 
-        $scope.saveArticle = function(){
+         $scope.publishArticle = function(){
+            var articleAddModel=new Object();
             var article = new Object();
-            var catalogId=null,tags=[];
+            var catalogId=null,tagIds=[];
             article.title=$("#title").val();
             $('input:radio[name=catalog]:checked').each(function(){
                 catalogId = $(this).val();
             });
             $('input[name="tag"]:checked').each(function(){
-                tags.push($(this).val());
+                tagIds.push($(this).val());
             });
             article.content=$("#editor").val();
-            BlogService.create(article).success(function(){
+            article.status=1;//发布状态
+            BlogService.create(article,catalogId,tagIds).success(function(){
+                layer.mgs("保存成功");
+            }).error(function(){
+                layer.mgs("保存失败");
+            })
+
+        }
+
+        $scope.saveArticle = function(){
+            var articleAddModel=new Object();
+            var article = new Object();
+            var catalogId=null,tagIds=[];
+            article.title=$("#title").val();
+            $('input:radio[name=catalog]:checked').each(function(){
+                catalogId = $(this).val();
+            });
+            $('input[name="tag"]:checked').each(function(){
+                tagIds.push($(this).val());
+            });
+            article.content=$("#editor").val();
+            article.status=0;//发布状态
+            BlogService.create(article,catalogId,tagIds).success(function(){
                 layer.mgs("保存成功");
             }).error(function(){
                 layer.mgs("保存失败");

@@ -10,6 +10,15 @@ public class ArticleCatalog extends BaseModel{
 
     public long catalog_id;
 
+    public ArticleCatalog(){
+
+    }
+
+    public ArticleCatalog(long article_id, long catalog_id) {
+        this.article_id = article_id;
+        this.catalog_id = catalog_id;
+    }
+
     public long getArticle_id() {
         return article_id;
     }

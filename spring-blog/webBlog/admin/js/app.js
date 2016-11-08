@@ -9,7 +9,7 @@ var options = {};
 options.api = {};
 options.api.base_url = "http://localhost:9100";
 
-
+var pageNo=1,pageSize=15;
 
 admin.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/index");
@@ -28,9 +28,9 @@ admin.config(function ($stateProvider, $urlRouterProvider) {
             }
         })
         .state('article', {
-            url: '/article',
+            url: '/article/:status',
             views: {
-                '': {templateUrl: 'templates/article_list.html'}
+                '': {templateUrl: 'templates/article_list.html',controller:'ArticleCtr'}
             }
         })
         .state('draft', {

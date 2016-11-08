@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by sdlili on 16-10-29.
  */
-public interface ArticleTagService {
+public interface ArticleTagService extends BaseService{
 
     public void deleteByTag(Long tag_id);
 

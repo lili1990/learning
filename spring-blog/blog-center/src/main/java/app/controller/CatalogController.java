@@ -1,16 +1,12 @@
 package app.controller;
 
-import app.dao.ArticleCatalogDao;
-import app.dao.CatalogDao;
 import app.models.Article;
 import app.models.Catalog;
-import app.models.Tag;
 import app.mybatis.Page;
 import app.service.ArticleCatalogService;
 import app.service.CatalogService;
-import app.vo.ResultVO;
+import app.models.responseVO.ResultVO;
 import io.swagger.annotations.ApiParam;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -47,7 +43,7 @@ public class CatalogController {
 
     @ResponseBody
     @RequestMapping(value="/list",method= RequestMethod.GET)
-    public String  addTag(Page page){
+    public String addTag(Page page){
         List<Catalog> catalogs = catalogService.fetch(page);
         return ResultVO.succeed(catalogs);
     }

@@ -13,17 +13,12 @@
 <div class="mail-box">
     <table class="table table-hover table-mail">
         <tbody>
-            <tr class="unread">
-                <td class="check-mail">
-                    <input type="checkbox" class="i-checks">
-                </td>
-                <td class="mail-ontact"><a href="mail_detail.html">支付宝</a>
-                </td>
-                <td class="mail-subject"><a href="mail_detail.html">支付宝提醒</a>
-                </td>
-                <td class=""><i class="fa fa-paperclip"></i>
-                </td>
-                <td class="text-right mail-date">昨天 10:20</td>
+            <tr ng-repeat=" article in articles" >
+                <td class="check-mail"><input type="checkbox" class="i-checks">/td>
+                <td class="mail-ontact"><a href="mail_detail.html">{{article.title}}</a></td>
+                <td class="mail-subject"><a href="mail_detail.html"></a></td>
+                <td class=""><i class="fa fa-paperclip"></i></td>
+                <td class="text-right mail-date">{{article.lastmodifytime|date:'yyyy-MM-dd'}}</td>
             </tr>
         </tbody>
     </table>

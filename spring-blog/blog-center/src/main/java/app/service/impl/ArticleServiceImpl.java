@@ -59,4 +59,8 @@ public class ArticleServiceImpl extends BaseServiceImpl implements ArticleServic
         return  articleDao.fetchHot(page);
     }
 
+    public List<Article> fetchByStatus(int status,Page page){
+        return articleDao.fetchByStatus(status,page);
+    }
+
 }

@@ -68,15 +68,20 @@
 
 
     <select id="fetchTop" resultType="Article">
-        select * from article where is_top =1 order by lastmodifytime;
+        select * from article where is_top =1 and status = 1 order by lastmodifytime;
     </select>
 
     <select id="fetchLatest" resultType="Article">
-        select * from article  order by lastmodifytime;
+        select * from article  and status = 1 order by lastmodifytime;
     </select>
 
     <select id="fetchHot" resultType="Article">
-        select * from article  order by click_count;
+        select * from article and status = 1 order by click_count;
+    </select>
+
+
+    <select id="fetchByStatus" resultType="Article">
+        select * from article where status = #{0} order by click_count;
     </select>
 
 

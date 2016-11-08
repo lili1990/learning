@@ -9,6 +9,15 @@ public class ArticleTag extends BaseModel{
 
     public long tag_id;
 
+    public ArticleTag(){
+
+    }
+
+    public ArticleTag(long article_id, long tag_id) {
+        this.article_id = article_id;
+        this.tag_id = tag_id;
+    }
+
     public long getArticle_id() {
         return article_id;
     }

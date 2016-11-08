@@ -21,6 +21,15 @@ public class Page<T> {
     private List<T> results;//对应的当前页记录
     private Map<String, Object> params = new HashMap<String, Object>();//其他的参数我们把它分装成一个Map对象
 
+    public Page(){
+
+    }
+
+    public Page(int pageNo, int pageSize) {
+        this.pageNo = pageNo;
+        this.pageSize = pageSize;
+    }
+
     public int getPageNo() {
         return pageNo;
     }

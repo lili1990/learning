@@ -29,4 +29,6 @@ public interface ArticleDao extends BaseDao {
 
     public List<Article> fetchHot(Page page);//获取最新文章
 
+    public List<Article> fetchByStatus(int status,Page page);
+
 }
