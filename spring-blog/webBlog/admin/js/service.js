@@ -49,20 +49,20 @@ adminServices.factory('CatalogService', function($http) {
 
 adminServices.factory('BlogService', function($http) {
     return {
-//        findAll: function() {
-//            return $http.get(options.api.base_url + '/article/list');
-//        },
+        findAll: function() {
+            return $http.get(options.api.base_url + '/article/list');
+        },
         findByStatus: function(status,pageNo,pageSize) {
-//          return $http.post(options.api.base_url + '/article/list', {status: status, pageNo: pageNo,pageSize:pageSize});
+            var page= new Object();
+            page.pageNo=pageNo;
+            page.pageSize=pageSize;
           return $http({
                            method : "POST",
                            url : options.api.base_url + '/article/list',
                            data :{
                                'status':status,
-                               'pageNo':pageNo,
-                               'pageSize':pageSize
-                           },
-                           header:{"Content-Type","application/x-www-form-urlencoded"}
+                               'page':page,
+                           }
 
                        })
 

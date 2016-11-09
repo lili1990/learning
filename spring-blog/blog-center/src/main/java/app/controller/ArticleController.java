@@ -4,6 +4,7 @@ import app.models.Article;
 import app.models.ArticleCatalog;
 import app.models.ArticleTag;
 import app.models.requestVO.ArticleAddModel;
+import app.models.requestVO.ArticleQueryModel;
 import app.models.responseVO.Result;
 import app.models.responseVO.ResultVO;
 import app.mybatis.Page;
@@ -68,8 +69,8 @@ public class ArticleController {
 
     @ResponseBody
     @RequestMapping(value="/list",method= RequestMethod.POST)
-    public String  fetchArticle(int status){
-        List<Article> articles = articleService.fetchByStatus(status,new Page(1,1));
+    public String  fetchArticle(@ApiParam @RequestBody ArticleQueryModel articleQueryModel){
+        List<Article> articles = articleService.fetchByStatus(articleQueryModel.getStatus(),articleQueryModel.getPage());
         return ResultVO.succeed(articles);
     }
 

@@ -30,7 +30,7 @@ admin.config(function ($stateProvider, $urlRouterProvider) {
         .state('article', {
             url: '/article/:status',
             views: {
-                '': {templateUrl: 'templates/article_list.html',controller:'ArticleCtr'}
+                '': {templateUrl: 'templates/article_list.html',controller:'ArticleCtrl'}
             }
         })
         .state('draft', {
