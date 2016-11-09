@@ -13,7 +13,7 @@
             <div class="form-group">
                 <label class="col-sm-1 control-label">标题</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" value=""  id="title">
+                    <input type="text" class="form-control" value="{{article.title}}"  id="title">
                 </div>
             </div>
             <div class="form-group">
@@ -35,7 +35,7 @@
         </form>
     </div>
     <div align="center">
-        <textarea id="editor" name="editor" rows="30" style="width: 90%; display: none;" ></textarea>
+        <textarea id="editor" name="editor" rows="30" style="width: 90%; display: none;" on-finish-render>{{article.content}}</textarea>
     </div>
 
     <div class="mail-body text-right tooltip-demo">
@@ -47,8 +47,8 @@
 </div>
 
 <script src="js/plugin/jquery.min.js"></script>
-<script src="js/plugin/bootstrap.min.js?v=3.3.6"></script>
-<script src="js/content.min.js?v=1.0.0"></script>
+<!--<script src="js/plugin/bootstrap.min.js?v=3.3.6"></script>-->
+<!--<script src="js/content.min.js?v=1.0.0"></script>-->
 <script src="js/plugin/xheditor-1.2.2/xheditor-1.2.2.min.js"></script>
 <script type="text/javascript">
    $(function(){
@@ -59,14 +59,7 @@
                 htmlCode+="<option value='html'>HTML/XML</option>";
                 htmlCode+="<option value='js'>Javascript</option>";
                 htmlCode+="<option value='css'>CSS</option>";
-                htmlCode+="<option value='php'>PHP</option>";
                 htmlCode+="<option value='java'>Java</option>";
-                htmlCode+="<option value='py'>Python</option>";
-                htmlCode+="<option value='pl'>Perl</option>";
-                htmlCode+="<option value='rb'>Ruby</option>";
-                htmlCode+="<option value='cs'>C#</option>";
-                htmlCode+="<option value='c'>C++/C</option>";
-                htmlCode+="<option value='vb'>VB/ASP</option>";
                 htmlCode+="<option value=''>其它</option>";
                 htmlCode+="</select></div><div>";
                 htmlCode+="<textarea id='xheCodeValue' wrap='soft' spellcheck='false' style='width:300px;height:100px;' />";
@@ -83,9 +76,13 @@
         }},
 
         };
-        $('#editor').xheditor({
-            plugins:plugins,//使用我们定义的插件
-            loadCSS:'<style>pre{margin-left:2em;border-left:3px solid #CCC;padding:0 1em;}</style>',
-        });
+       setTimeout(function() {
+           $('#editor').xheditor({
+               plugins: plugins,//使用我们定义的插件
+               loadCSS: '<style>pre{margin-left:2em;border-left:3px solid #CCC;padding:0 1em;}</style>',
+           });
+       },100);
+
+
     })
 </script>

@@ -15,6 +15,8 @@ public interface BaseService<T extends BaseModel> {
 
     public Long  save(T o);
 
+    public void  saveOrUpdate(T o);
+
     public Long  batchSave(List<T> list);
 
     public void delete(Long id);

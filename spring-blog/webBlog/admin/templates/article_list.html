@@ -14,11 +14,16 @@
     <table class="table table-hover table-mail">
         <tbody>
             <tr ng-repeat=" article in articles" >
-                <td class="check-mail"><input type="checkbox" class="i-checks">/td>
-                <td class="mail-ontact"><a href="mail_detail.html">{{article.title}}</a></td>
+                <td class="check-mail"><input type="checkbox" class="i-checks"></td>
+                <td class="mail-ontact"><a href="#/editArticle/{{article.id}}" >{{article.title}}</a></td>
+                <td class="text-right mail-date">{{article.lastModifyTime|date:'yyyy-MM-dd'}}</td>
                 <td class="mail-subject"><a href="mail_detail.html"></a></td>
                 <td class=""><i class="fa fa-paperclip"></i></td>
-                <td class="text-right mail-date">{{article.lastmodifytime|date:'yyyy-MM-dd'}}</td>
+                <td class="text-right mail-date">
+                    <a href="#/editArticle/{{article.id}}">编辑</a> |
+                    <a href="?t=top&amp;id=52782459">置顶</a> |
+                    <a href="?t=del&amp;id=52782459" name="del">删除</a>
+                </td>
             </tr>
         </tbody>
     </table>

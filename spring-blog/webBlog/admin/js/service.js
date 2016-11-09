@@ -67,6 +67,9 @@ adminServices.factory('BlogService', function($http) {
                        })
 
         },
+        findById: function(id) {
+            return $http.get(options.api.base_url + '/article/'+id);
+        },
         delete: function(id) {
             return $http.delete(options.api.base_url + '/article/delete' + id);
         },

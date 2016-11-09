@@ -72,6 +72,84 @@ adminControllers.controller('BlogCatalogCtrl', ['$scope', '$stateParams', 'BlogS
     }
 ]);
 
+//博客编辑(普通编辑器)
+adminControllers.controller('BlogEditCtrl', ['$scope', '$stateParams', 'TagService','BlogService','CatalogService',
+    function BlogEditCtrl($scope, $stateParams, TagService,BlogService,CatalogService) {
+        $scope.tags = [];
+        $scope.catalogs = [];
+        $scope.article=null;
+        var articleId = $stateParams.articleId;
+
+
+        TagService.findAll().success(function(data) {
+            $scope.tags = data.list;
+        }).error(function(data, status) {
+            console.log(status);
+            console.log(data);
+        });
+
+
+
+        CatalogService.findAll().success(function(data) {
+            $scope.catalogs =data.list;
+        }).error(function(data, status) {
+            console.log(status);
+            console.log(data);
+        });
+
+        BlogService.findById(articleId).success(function(data) {
+            $scope.article =data.result;
+        }).error(function(data, status) {
+            console.log(status);
+            console.log(data);
+        });
+
+        $scope.publishArticle = function(){
+            var articleAddModel=new Object();
+            var article = new Object();
+            var catalogId=null,tagIds=[];
+            article.title=$("#title").val();
+            $('input:radio[name=catalog]:checked').each(function(){
+                catalogId = $(this).val();
+            });
+            $('input[name="tag"]:checked').each(function(){
+                tagIds.push($(this).val());
+            });
+            article.content=$("#editor").val();
+            article.status=1;//发布状态
+            BlogService.create(article,catalogId,tagIds).success(function(){
+                layer.mgs("保存成功");
+            }).error(function(){
+                layer.mgs("保存失败");
+            })
+
+        }
+
+        $scope.saveArticle = function(){
+            var articleAddModel=new Object();
+            var article = new Object();
+            var catalogId=null,tagIds=[];
+            article.title=$("#title").val();
+            $('input:radio[name=catalog]:checked').each(function(){
+                catalogId = $(this).val();
+            });
+            $('input[name="tag"]:checked').each(function(){
+                tagIds.push($(this).val());
+            });
+            article.content=$("#editor").val();
+            article.status=0;//发布状态
+            BlogService.create(article,catalogId,tagIds).success(function(){
+                layer.mgs("保存成功");
+            }).error(function(){
+                layer.mgs("保存失败");
+            })
+
+        }
+
+
+
+    }
+]);
 
 //博客编辑(普通编辑器)
 adminControllers.controller('BlogCreateCtrl', ['$scope', '$stateParams', 'TagService','BlogService','CatalogService',

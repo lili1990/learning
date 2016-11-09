@@ -34,9 +34,9 @@ admin.config(function ($stateProvider, $urlRouterProvider) {
             }
         })
         .state('draft', {
-            url: '/draft',
+            url: '/draft/:status',
             views: {
-                '': {templateUrl: 'templates/article_draft.html'}
+                '': {templateUrl: 'templates/article_draft.html',controller:'ArticleCtrl'}
             }
         })
         .state('create', {
@@ -50,6 +50,18 @@ admin.config(function ($stateProvider, $urlRouterProvider) {
               views: {
                   '': {templateUrl: 'templates/article_createMark.html',controller:"BlogCreateCtrl"}
               }
+        })
+        .state('mdeditArticle', {
+            url: '/mdeditArticle/:articleId',
+            views: {
+                '': {templateUrl: 'templates/article_createMark.html',controller:"BlogCreateCtrl"}
+            }
+        })
+        .state('editArticle ', {
+            url: '/editArticle/:articleId',
+            views: {
+                '': {templateUrl: 'templates/article_create.html',controller:"BlogEditCtrl"}
+            }
         });
 
 

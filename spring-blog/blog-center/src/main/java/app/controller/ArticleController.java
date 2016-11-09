@@ -14,10 +14,7 @@ import app.service.ArticleTagService;
 import io.swagger.annotations.ApiParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -47,14 +44,23 @@ public class ArticleController {
         Article article = articleAddModel.getArticle();
         articleService.save(article);
         Long articleId= article.getId();
+        articleCatalogService.deleteByArticle(articleId);
         articleCatalogService.save(new ArticleCatalog(articleId,articleAddModel.getCatalogId()));
         List<ArticleTag> articleTags = new ArrayList<ArticleTag>();
         for(Long tagId : articleAddModel.getTagIds()){
             articleTags.add(new ArticleTag());
         }
+        articleTagService.deleteByArticle(articleId);
         articleTagService.batchSave(articleTags);
         return ResultVO.succeed(articleId);
 
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/{articleId}",method= RequestMethod.GET)
+    public String  findById(@PathVariable("articleId")Long articleId){
+        Article article=(Article)articleService.findById(articleId);
+        return ResultVO.succeed(article);
     }
 
     @RequestMapping(value="/delete",method= RequestMethod.DELETE)

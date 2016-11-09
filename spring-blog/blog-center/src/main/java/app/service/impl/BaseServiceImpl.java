@@ -21,6 +21,10 @@ public abstract class BaseServiceImpl<T extends BaseModel> implements BaseServic
        return getDao().save(o);
     }
 
+    public void  saveOrUpdate(T o){
+         getDao().saveOrUpdate(o);
+    }
+
     public Long  batchSave(List<T> list){
         return getDao().batchSave(list);
     }

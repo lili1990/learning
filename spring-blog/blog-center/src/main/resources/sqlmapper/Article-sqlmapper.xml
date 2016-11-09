@@ -5,7 +5,36 @@
 
 
     <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="Article">
-        insert into article(title,cover_img,description,content) values(#{title},#{cover_img},#{description},#{content});
+        insert into article(title,cover_img,description,content,status,create_time,lastModifyTime,)
+        values(#{title},#{cover_img},#{description},#{content},#{status},#{create_time},#{lastModifyTime});
+    </insert>
+
+    <insert id="saveOrUpdate" parameterType="Article">
+
+        <if test="id=!null and id != 0">
+            update article
+            <set>
+                <if test="title !=null and title !=''">
+                    title=#{title},
+                </if>
+                <if test="cover_img !=null and cover_img !=''">
+                    cover_img=#{cover_img},
+                </if>
+                <if test="description !=null and description !=''">
+                    description=#{description},
+                </if>
+                <if test="content !=null and content !=''">
+                    content=#{content},
+                </if>
+                lastModifyTime=#{lastModifyTime}
+            </set>
+
+            where id = #{id}
+        </if>
+        <if test="id==0 || id==null">
+            insert into article(title,cover_img,description,content,status,create_time,lastModifyTime,)
+            values(#{title},#{cover_img},#{description},#{content},#{status},#{create_time},#{lastModifyTime});
+        </if>
     </insert>
 
     <select id="findById" resultType="Article">
