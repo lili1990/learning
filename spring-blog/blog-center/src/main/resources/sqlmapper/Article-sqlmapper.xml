@@ -5,7 +5,7 @@
 
 
     <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="Article">
-        insert into article(title,cover_img,description,content,status,create_time,lastModifyTime,)
+        insert into article(title,cover_img,description,content,status,create_time,lastModifyTime)
         values(#{title},#{cover_img},#{description},#{content},#{status},#{create_time},#{lastModifyTime});
     </insert>
 
@@ -26,13 +26,15 @@
                 <if test="content !=null and content !=''">
                     content=#{content},
                 </if>
+                <if test="status !=null and status !=0">
+                    status=#{status},
+                </if>
                 lastModifyTime=#{lastModifyTime}
             </set>
-
-            where id = #{id}
+            where id = #{article_id}
         </if>
         <if test="id==0 || id==null">
-            insert into article(title,cover_img,description,content,status,create_time,lastModifyTime,)
+            insert into article(title,cover_img,description,content,status,create_time,lastModifyTime)
             values(#{title},#{cover_img},#{description},#{content},#{status},#{create_time},#{lastModifyTime});
         </if>
     </insert>

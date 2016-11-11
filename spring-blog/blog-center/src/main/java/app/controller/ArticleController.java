@@ -42,13 +42,14 @@ public class ArticleController {
     @RequestMapping(value="/add",method= RequestMethod.POST)
     public String  addArticle(@ApiParam @RequestBody ArticleAddModel articleAddModel){
         Article article = articleAddModel.getArticle();
-        articleService.save(article);
+        article.setDescription(article.getContent().substring(0,200));
+        articleService.saveOrUpdate(article);
         Long articleId= article.getId();
         articleCatalogService.deleteByArticle(articleId);
         articleCatalogService.save(new ArticleCatalog(articleId,articleAddModel.getCatalogId()));
         List<ArticleTag> articleTags = new ArrayList<ArticleTag>();
         for(Long tagId : articleAddModel.getTagIds()){
-            articleTags.add(new ArticleTag());
+            articleTags.add(new ArticleTag(articleId,tagId));
         }
         articleTagService.deleteByArticle(articleId);
         articleTagService.batchSave(articleTags);

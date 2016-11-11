@@ -104,10 +104,11 @@ adminControllers.controller('BlogEditCtrl', ['$scope', '$stateParams', 'TagServi
             console.log(data);
         });
 
-        $scope.publishArticle = function(){
+        $scope.publishArticle = function(articleId){
             var articleAddModel=new Object();
             var article = new Object();
             var catalogId=null,tagIds=[];
+            article.id=articleId;
             article.title=$("#title").val();
             $('input:radio[name=catalog]:checked').each(function(){
                 catalogId = $(this).val();
@@ -117,18 +118,23 @@ adminControllers.controller('BlogEditCtrl', ['$scope', '$stateParams', 'TagServi
             });
             article.content=$("#editor").val();
             article.status=1;//发布状态
+            isEmpty(article.title,"标题不能为空！");
+            isEmpty(article.catalogId,"分类不能为空！");
+            isEmpty(article.tagIds,"标签不能为空！");
+            isEmpty(article.content,"内容不能为空！");
             BlogService.create(article,catalogId,tagIds).success(function(){
-                layer.mgs("保存成功");
+                $state.go('/article/1');
             }).error(function(){
                 layer.mgs("保存失败");
             })
 
         }
 
-        $scope.saveArticle = function(){
+        $scope.saveArticle = function(articleId){
             var articleAddModel=new Object();
             var article = new Object();
             var catalogId=null,tagIds=[];
+            article.id=articleId;
             article.title=$("#title").val();
             $('input:radio[name=catalog]:checked').each(function(){
                 catalogId = $(this).val();
@@ -138,8 +144,12 @@ adminControllers.controller('BlogEditCtrl', ['$scope', '$stateParams', 'TagServi
             });
             article.content=$("#editor").val();
             article.status=0;//发布状态
+            isEmpty(article.title,"标题不能为空！");
+            isEmpty(article.catalogId,"分类不能为空！");
+            isEmpty(article.tagIds,"标签不能为空！");
+            isEmpty(article.content,"内容不能为空！");
             BlogService.create(article,catalogId,tagIds).success(function(){
-                layer.mgs("保存成功");
+                $state.go('/draft/0');
             }).error(function(){
                 layer.mgs("保存失败");
             })
@@ -184,6 +194,10 @@ adminControllers.controller('BlogCreateCtrl', ['$scope', '$stateParams', 'TagSer
             });
             article.content=$("#editor").val();
             article.status=1;//发布状态
+             isEmpty(article.title,"标题不能为空！");
+             isEmpty(article.catalogId,"分类不能为空！");
+             isEmpty(article.tagIds,"标签不能为空！");
+             isEmpty(article.content,"内容不能为空！");
             BlogService.create(article,catalogId,tagIds).success(function(){
                 layer.mgs("保存成功");
             }).error(function(){
@@ -205,6 +219,10 @@ adminControllers.controller('BlogCreateCtrl', ['$scope', '$stateParams', 'TagSer
             });
             article.content=$("#editor").val();
             article.status=0;//发布状态
+            isEmpty(article.title,"标题不能为空！");
+            isEmpty(article.catalogId,"分类不能为空！");
+            isEmpty(article.tagIds,"标签不能为空！");
+            isEmpty(article.content,"内容不能为空！");
             BlogService.create(article,catalogId,tagIds).success(function(){
                 layer.mgs("保存成功");
             }).error(function(){

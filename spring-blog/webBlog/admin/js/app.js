@@ -11,6 +11,16 @@ options.api.base_url = "http://localhost:9100";
 
 var pageNo=1,pageSize=15;
 
+
+var isEmpty = function(obj,errorInfo){
+    var keepGoing = true;
+    if(obj ==undefined || obj.length==0){
+        layer.msg(errorInfo);
+        keepGoing= false;
+    }
+    return true;
+}
+
 admin.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/index");
 
