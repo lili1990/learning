@@ -81,6 +81,27 @@ public class ArticleController {
         return ResultVO.succeed(articles);
     }
 
+    @ResponseBody
+    @RequestMapping(value="/hot",method= RequestMethod.GET)
+    public String  fetchHot(Page page){
+        List<Article> articles = articleService.fetchHot(page);
+        return ResultVO.succeed(articles);
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/latested",method= RequestMethod.GET)
+    public String  fetchLatested(Page page){
+        List<Article> articles = articleService.fetchLatest(page);
+        return ResultVO.succeed(articles);
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/top",method= RequestMethod.GET)
+    public String  fetchTop(Page page){
+        List<Article> articles = articleService.fetchTop(page);
+        return ResultVO.succeed(articles);
+    }
+
 
 
 
