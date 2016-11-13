@@ -1,0 +1,106 @@
+#!/bin/bash
+cd `dirname $0`
+BIN_DIR=`pwd`
+cd ..
+DEPLOY_DIR=`pwd`
+CONF_DIR=$DEPLOY_DIR/conf
+
+SERVER_NAME=`sed '/application.name/!d;s/.*=//' conf/application.conf | tr -d '\r'`
+SERVER_HOST=`sed '/http.host/!d;s/.*=//' conf/application.conf | tr -d '\r'`
+SERVER_PORT=`sed '/http.port/!d;s/.*=//' conf/application.conf | tr -d '\r'`
+SERVER_JMX_PORT=`sed '/jmxport/!d;s/.*=//' conf/application.conf | tr -d '\r'`
+SERVER_DEBUG_PORT=`sed '/debugport/!d;s/.*=//' conf/application.conf | tr -d '\r'`
+export LD_LIBRARY_PATH=$DEPLOY_DIR/lib:$LD_LIBRARY_PATH
+
+if [ -z "$SERVER_NAME" ]; then
+    SERVER_NAME=`hostname`
+fi
+
+if [ -z "$SERVER_JMX_PORT" ]; then
+    SERVER_JMX_PORT=$(($SERVER_PORT + 3))
+fi
+
+if [ -z "$SERVER_DEBUG_PORT" ]; then
+    SERVER_DEBUG_PORT=$(($SERVER_PORT + 4))
+fi
+
+PIDS=`ps -ef | grep java | grep "$DEPLOY_DIR" |awk '{print $2}'`
+if [ -n "$PIDS" ]; then
+    echo "ERROR: The $SERVER_NAME already started!"
+    echo "PID: $PIDS"
+    exit 1
+fi
+
+if [ -n "$SERVER_PORT" ]; then
+    SERVER_PORT_COUNT=`netstat -tln | grep $SERVER_PORT | wc -l`
+    if [ $SERVER_PORT_COUNT -gt 0 ]; then
+        echo "ERROR: The $SERVER_NAME port $SERVER_PORT already used!"
+        exit 1
+    fi
+fi
+
+LOGS_DIR=""
+if [ -n "$LOGS_FILE" ]; then
+    LOGS_DIR=`dirname $LOGS_FILE`
+else
+    LOGS_DIR=$DEPLOY_DIR/logs
+fi
+if [ ! -d $LOGS_DIR ]; then
+    mkdir $LOGS_DIR
+fi
+STDOUT_FILE=$LOGS_DIR/stdout.log
+
+LIB_DIR=$DEPLOY_DIR/lib
+LIB_JARS=`ls $LIB_DIR|grep .jar|awk '{print "'$LIB_DIR'/"$0}'|tr "\n" ":"`
+
+JAVA_OPTS=" -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true -Djna.library.path=$LIB_DIR "
+JAVA_DEBUG_OPTS=""
+if [ "$1" = "debug" ]; then
+    JAVA_DEBUG_OPTS=" -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=$SERVER_DEBUG_PORT,server=y,suspend=n "
+fi
+JAVA_JMX_OPTS=""
+if [ "$1" = "jmx" ]; then
+    JAVA_JMX_OPTS=" -Dcom.sun.management.jmxremote.port=$SERVER_JMX_PORT -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false "
+fi
+JAVA_MEM_OPTS=""
+BITS=`java -version 2>&1 | grep -i 64-bit`
+if [ -n "$BITS" ]; then
+    JAVA_MEM_OPTS=" -server -Xmx2g -Xms1g -Xmn256m -XX:PermSize=128m -Xss256k -XX:+DisableExplicitGC -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+UseCMSCompactAtFullCollection -XX:LargePageSizeInBytes=128m -XX:+UseFastAccessorMethods -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=70 "
+else
+    JAVA_MEM_OPTS=" -server -Xms1g -Xmx1g -XX:PermSize=128m -XX:SurvivorRatio=2 -XX:+UseParallelGC "
+fi
+
+CLASS_PARAM="-Djetty.webappPath=$DEPLOY_DIR/webapp app.server.JettyServer"
+
+echo -e "Starting the $SERVER_NAME ...\c"
+nohup java $JAVA_OPTS $JAVA_MEM_OPTS $JAVA_DEBUG_OPTS $JAVA_JMX_OPTS \
+    -classpath $CONF_DIR:$LIB_DIR:$LIB_JARS \
+    -Dhome="$DEPLOY_DIR" \
+    $CLASS_PARAM > $STDOUT_FILE 2>&1 &
+
+COUNT=0
+while [ $COUNT -lt 1 ]; do
+    echo -e ".\c"
+    sleep 1
+    if [ -n "$SERVER_PORT" ]; then
+        if [ "$SERVER_PROTOCOL" == "dubbo" ]; then
+            if [ -n "$SERVER_HOST" ]; then
+               COUNT=`echo status | nc -i 1 $SERVER_HOST $SERVER_PORT | grep -c OK`
+           else
+                COUNT=`echo status | nc -i 1 127.0.0.1 $SERVER_PORT | grep -c OK`
+            fi
+        else
+            COUNT=`netstat -an | grep $SERVER_PORT | wc -l`
+        fi
+    else
+        COUNT=`ps -ef | grep java | grep "$DEPLOY_DIR" | awk '{print $2}' | wc -l`
+    fi
+    if [ $COUNT -gt 0 ]; then
+        break
+    fi
+done
+
+echo "OK!"
+PIDS=`ps -ef | grep java | grep "$DEPLOY_DIR" | awk '{print $2}'`
+echo "PID: $PIDS"
+echo "STDOUT: $STDOUT_FILE"
