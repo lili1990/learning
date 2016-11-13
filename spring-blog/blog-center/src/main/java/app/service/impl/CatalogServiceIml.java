@@ -21,4 +21,8 @@ public class CatalogServiceIml extends BaseServiceImpl implements CatalogService
         return catalogDao;
     }
 
+    public Catalog finByALiasName(String alias_name){
+        return catalogDao.finByALiasName(alias_name);
+    }
+
 }

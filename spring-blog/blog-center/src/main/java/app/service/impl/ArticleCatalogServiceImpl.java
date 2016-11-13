@@ -5,6 +5,7 @@ import app.dao.ArticleTagDao;
 import app.dao.BaseDao;
 import app.models.Article;
 import app.models.ArticleCatalog;
+import app.models.Catalog;
 import app.service.ArticleCatalogService;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +37,13 @@ public class ArticleCatalogServiceImpl extends BaseServiceImpl implements Articl
     public List<Article> fetchArticlesByCatalogId(Long catalogId){
 
         return articleCatalogDao.fetchArticlesByCatalogId(catalogId);
+    }
+    public List<Article> fetchArticlesByCatalogName(String alias_name){
+        return articleCatalogDao.fetchArticlesByCatalogName(alias_name);
+    }
+
+
+    public Catalog fetchByArticleId(Long articleId){
+        return articleCatalogDao.fetchByArticleId(articleId);
     }
 }

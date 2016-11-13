@@ -1,6 +1,7 @@
 package app.dao;
 
 import app.models.Article;
+import app.models.Catalog;
 
 import java.util.List;
 
@@ -16,5 +17,9 @@ public interface ArticleCatalogDao extends BaseDao{
     public void deleteByArticle(Long article_id);
 
     public List<Article> fetchArticlesByCatalogId(Long catalogId);
+
+    public List<Article> fetchArticlesByCatalogName(String alias_name);
+
+    public Catalog fetchByArticleId(Long articleId);
 
 }

@@ -30,4 +30,8 @@ public interface ArticleService extends BaseService{
 
     public List<Article> fetchByStatus(int status,Page page);
 
+    public List<Article> fetchBefore(Long articleId);
+
+    public List<Article> fetchAfter(Long articleId);
+
 }

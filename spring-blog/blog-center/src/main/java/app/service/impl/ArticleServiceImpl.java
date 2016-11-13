@@ -63,4 +63,10 @@ public class ArticleServiceImpl extends BaseServiceImpl implements ArticleServic
         return articleDao.fetchByStatus(status,page);
     }
 
+    public List<Article> fetchBefore(Long articleId){
+        return articleDao.fetchBefore(articleId);
+    }
+
+    public List<Article> fetchAfter(Long articleId){return articleDao.fetchAfter(articleId);}
+
 }

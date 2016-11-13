@@ -3,6 +3,7 @@ package app.controller;
 import app.models.Article;
 import app.models.ArticleCatalog;
 import app.models.ArticleTag;
+import app.models.Catalog;
 import app.models.requestVO.ArticleAddModel;
 import app.models.requestVO.ArticleQueryModel;
 import app.models.responseVO.Result;
@@ -11,6 +12,7 @@ import app.mybatis.Page;
 import app.service.ArticleCatalogService;
 import app.service.ArticleService;
 import app.service.ArticleTagService;
+import app.service.CatalogService;
 import io.swagger.annotations.ApiParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +31,10 @@ public class ArticleController {
 
     @Resource
     private ArticleService articleService;
+
+    @Resource
+    private CatalogService catalogService;
+
 
     @Resource
     private ArticleTagService articleTagService;
@@ -99,6 +105,35 @@ public class ArticleController {
     @RequestMapping(value="/top",method= RequestMethod.GET)
     public String  fetchTop(Page page){
         List<Article> articles = articleService.fetchTop(page);
+        return ResultVO.succeed(articles);
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/tagId",method= RequestMethod.GET)
+    public String  fetchByTag(Page page){
+        List<Article> articles = articleService.fetchTop(page);
+        return ResultVO.succeed(articles);
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/before/{articleId}",method= RequestMethod.GET)
+    public String  fetchBefore(@PathVariable("articleId")Long articleId){
+        List<Article> articles = articleService.fetchBefore(articleId);
+        return ResultVO.succeed(articles);
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/after/{articleId}",method= RequestMethod.GET)
+    public String  fetchAfter(@PathVariable("articleId")Long articleId){
+        List<Article> articles = articleService.fetchAfter(articleId);
+        return ResultVO.succeed(articles);
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/catalog/{catalogName}",method= RequestMethod.GET)
+    public String  fetchByCatalog(@PathVariable("catalogName")String  catalogName){
+        Catalog catalog = catalogService.finByALiasName(catalogName);
+        List<Article> articles = articleCatalogService.fetchArticlesByCatalogId(catalog.getId());
         return ResultVO.succeed(articles);
     }
 

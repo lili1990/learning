@@ -22,7 +22,9 @@
     </update>
 
 
-
+    <select id="finByALiasName" resultType="Catalog">
+        select * from catalog where alias_name = #{0};
+    </select>
 
 
 </mapper>

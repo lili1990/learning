@@ -2,6 +2,7 @@ package app.controller;
 
 import app.models.Article;
 import app.models.Catalog;
+import app.models.Tag;
 import app.mybatis.Page;
 import app.service.ArticleCatalogService;
 import app.service.CatalogService;
@@ -39,6 +40,12 @@ public class CatalogController {
     public String  fetchArticles(Long catalogId){
         List<Article> articles = articleCatalogService.fetchArticlesByCatalogId(catalogId);
         return ResultVO.succeed(articles);
+    }
+
+    @RequestMapping(value="/{articleId}",method= RequestMethod.GET)
+    public String  fetchTagsByArticle(@PathVariable("articleId")Long articleId){
+       Catalog catalog = articleCatalogService.fetchByArticleId(articleId);
+        return ResultVO.succeed(catalog);
     }
 
     @ResponseBody

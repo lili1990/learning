@@ -35,8 +35,8 @@ public class TagController {
          tagService.delete(tagId);
     }
 
-    @RequestMapping(value="/article/{articleId}",method= RequestMethod.GET)
-    public String  fetchTagsByArticle(Long articleId){
+    @RequestMapping(value="/{articleId}",method= RequestMethod.GET)
+    public String  fetchTagsByArticle(@PathVariable("articleId")Long articleId){
         List<Tag> tags = articleTagService.fetchByArticleId(articleId);
         return ResultVO.succeed(tags);
     }

@@ -37,6 +37,13 @@
 
     </select>
 
+    <select id="fetchByArticleId" resultType="Catalog">
+        select ct.id,ct.name,ct.alias_name
+        from catalog ct,articlecatalog ac
+        where ct.id=ac.catalog_id  and ac.article_id = #{0};
+
+    </select>
+
 
 
 

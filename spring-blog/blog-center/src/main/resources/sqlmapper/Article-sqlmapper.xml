@@ -116,7 +116,13 @@
     </select>
 
 
+    <select id="fetchBefore" resultType="Article">
+        SELECT id,title FROM article WHERE id &lt; #{0}  order by id ASC  limit 1
+    </select>
 
+    <select id="fetchAfter" resultType="Article">
+        SELECT id,title FROM article WHERE id &gt; #{0}  order by id desc  limit 1
+    </select>
 
 
 </mapper>
