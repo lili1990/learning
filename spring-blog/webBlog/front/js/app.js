@@ -7,7 +7,13 @@ var appControllers = angular.module('appControllers', []);
 
 var options = {};
 options.api = {};
-options.api.base_url = "http://localhost:63342";
+options.api.base_url = "http://localhost:9100";
+
+app.filter('trustHtml', function ($sce) {
+    return function (input) {
+        return $sce.trustAsHtml(input);
+    }
+});
 
 
 
@@ -18,37 +24,33 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         .state('index', {
             url: '/index',
             views: {
-                '': {templateUrl: 'templates/home.html',controller:"homeCtrl"},
-                'main@index': {templateUrl: 'templates/main.html',controller:"homeCtrl"},
+                '': {templateUrl: 'templates/main.html',controller:"homeCtrl"},
             }
 
         })
         .state('catalog', {
             url: '/catalog/:catalogName',
             views: {
-                '': {templateUrl: 'templates/home.html'},
-                //'header@java': {templateUrl: 'templates/head.html'},
-                'main@catalog': {templateUrl: 'templates/list.html',controller:"BlogCatalogCtrl"}
-                //'right@java': {templateUrl: 'templates/rightBar.html'}
+                '': {templateUrl: 'templates/list.html',controller:"BlogCatalogCtrl"}
             }
         })
         .state('books', {
             url: '/books',
             views: {
-                '': {templateUrl: 'templates/home.html'},
-                'header@books': {templateUrl: 'templates/head.html'},
-                'main@books': {templateUrl: 'templates/main.html'},
-                'right@books': {templateUrl: 'templates/rightBar.html'}
+                '': {templateUrl: 'templates/main.html'},
             }
         })
         .state('about', {
             url: '/about',
             views: {
-                '': {templateUrl: 'templates/home.html'},
-                'header@about': {templateUrl: 'templates/head.html'},
-                'main@about': {templateUrl: 'templates/about.html'},
-                'right@about': {templateUrl: 'templates/rightBar.html'}
+                '': {templateUrl: 'templates/about.html',controller:'AboutCtrl'},
             }
         })
+        .state('article', {
+        url: '/article/:articleId',
+        views: {
+            '': {templateUrl: 'templates/article.html',controller:"ArticleCtrl"}
+        }
+    })
 
 });

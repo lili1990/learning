@@ -10,57 +10,46 @@ appServices.factory('BlogService', function($http) {
             return $http.get('data/data.json');
         },
         findToped: function() {
-            return $http.get(options.api.base_url + '/blog/top');
+            return $http.get(options.api.base_url + '/article/top');
         },
         findLatested: function() {
-            return $http.get(options.api.base_url + '/blog/latested');
+            return $http.get(options.api.base_url + '/article/latested');
         },
-        findByCatalog: function(catalog) {
-            return $http.get(options.api.base_url + '/blog/catalog/' + catalog);
+        findHot: function() {
+            return $http.get(options.api.base_url + '/article/hot');
+        },
+        findByCatalog: function(catalogId) {
+            return $http.get(options.api.base_url + '/article/catalog/' + catalogId);
         },
         findByTag: function(tag) {
-            return $http.get(options.api.base_url + '/blog/tag/' + tag);
+            return $http.get(options.api.base_url + '/article/tag/' + tag);
         },
         findById: function(id) {
-            return $http.get(options.api.base_url + '/blog/' + id);
+            return $http.get(options.api.base_url + '/article/' + id);
         },
-
         findAll: function() {
-            return $http.get(options.api.base_url + '/blog/all');
+            return $http.get(options.api.base_url + '/article/list');
+        },
+        findTags: function(articleId) {
+            return $http.get(options.api.base_url + '/tag/'+articleId);
+        },
+        findCatalog: function(articleId) {
+            return $http.get(options.api.base_url + '/catalog/'+articleId);
+        },
+        findCatalogs: function() {
+            return $http.get(options.api.base_url + '/catalog/list');
+        },
+        findBefore: function(articleId) {
+            return $http.get(options.api.base_url + '/article/before/'+articleId);
+        },
+        findAfter: function(articleId) {
+            return $http.get(options.api.base_url + '/article/after/'+articleId);
         }
 
     };
 });
 
 
-appServices.factory('BlogAdminService', function($http) {
-    return {
 
-
-        findAll: function() {
-            return $http.get(options.api.base_url + '/blog/all');
-        },
-
-        delete: function(id) {
-            return $http.delete(options.api.base_url + '/blog/delete' + id);
-        },
-
-        create: function(post) {
-            return $http.post(options.api.base_url + '/blog', {'post': post});
-        },
-
-        update: function(post) {
-            return $http.put(options.api.base_url + '/blog', {'post': post});
-        },
-
-        like: function(id) {
-            return $http.post(options.api.base_url  + '/blog/like', {'id': id});
-        },
-
-        unlike: function(id) {
-            return $http.post(options.api.base_url  + '/blog/unlike', {'id': id});
-        }
-    };
-});
 
 

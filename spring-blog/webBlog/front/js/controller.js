@@ -6,70 +6,130 @@ appControllers.controller('homeCtrl', ['$scope', '$rootScope', 'BlogService',
         $scope.blogs = [];
         $rootScope.latestBlogs=[];
         $rootScope.hotBlogs=[];
-        $rootScope.catalogIndex = 0;
+        $rootScope.catalogName = 'index';
 
-        BlogService.findTest().success(function(data) {
-            $scope.blogs = data.blogs;
-            $rootScope.latestBlogs=data.blogs;
-            $rootScope.hotBlogs=data.blogs;
+        BlogService.findLatested().success(function(data) {
+            $rootScope.latestBlogs=data.list;
         }).error(function(data, status) {
             console.log(status);
             console.log(data);
         });
 
-        //BlogService.findAllPublished().success(function(data) {
-        //    $scope.blogs = data;
-        //}).error(function(data, status) {
-        //    console.log(status);
-        //    console.log(data);
-        //});
+        BlogService.findHot().success(function(data) {
+            $rootScope.hotBlogs=data.list;
+        }).error(function(data, status) {
+            console.log(status);
+            console.log(data);
+        });
+
+        BlogService.findToped().success(function(data) {
+            $scope.blogs = data.list;
+        }).error(function(data, status) {
+            console.log(status);
+            console.log(data);
+        });
     }
 ]);
 
-appControllers.controller('BlogCatalogCtrl', ['$scope', '$stateParams', 'BlogService',
-    function BlogCatalogCtrl($scope, $stateParams, BlogService) {
+appControllers.controller('BlogCatalogCtrl', ['$scope','$rootScope', '$stateParams', 'BlogService',
+    function BlogCatalogCtrl($scope,$rootScope, $stateParams, BlogService) {
 
         $scope.blogs = [];
         var catalogName = $stateParams.catalogName;
+        $rootScope.catalogName=catalogName;
 
-        BlogService.findTest().success(function(data) {
-            $scope.blogs = data.blogs;
+        BlogService.findByCatalog(catalogName).success(function(data) {
+            $scope.blogs = data.list;
+        }).error(function(status, data) {
+            console.log(status);
+            console.log(data);
+        });
+
+    }
+]);
+appControllers.controller('AboutCtrl', ['$scope','$rootScope', '$stateParams',
+    function AboutCtrl($scope,$rootScope, $stateParams) {
+        $rootScope.catalogName='about';
+    }
+]);
+
+appControllers.controller('ArticleCtrl', ['$scope','$rootScope', '$stateParams', 'BlogService',
+    function ArticleCtrl($scope,$rootScope, $stateParams, BlogService) {
+
+        $scope.article = [];
+        $scope.tags = [];
+        $scope.beforeArticles = [];
+        $scope.afterArticles = [];
+        var articleId = $stateParams.articleId;
+
+        BlogService.findById(articleId).success(function(data) {
+            $scope.article = data.result;
+        }).error(function(status, data) {
+            console.log(status);
+            console.log(data);
+        });
+
+
+        $rootScope.latestBlogs=[];
+        $rootScope.hotBlogs=[];
+
+        BlogService.findLatested().success(function(data) {
+            $rootScope.latestBlogs=data.list;
         }).error(function(data, status) {
             console.log(status);
             console.log(data);
         });
 
-        //BlogService.findByCatalog(catalogName).success(function(data) {
-        //    //$scope.blogs = data;
-        //}).error(function(status, data) {
-        //    console.log(status);
-        //    console.log(data);
-        //});
+        BlogService.findHot().success(function(data) {
+            $rootScope.hotBlogs=data.list;
+        }).error(function(data, status) {
+            console.log(status);
+            console.log(data);
+        });
+
+        BlogService.findTags(articleId).success(function(data) {
+            console.log(data);
+            $scope.tags=data.list;
+        }).error(function(data, status) {
+            console.log(status);
+            console.log(data);
+        });
+        BlogService.findCatalog(articleId).success(function(data) {
+            $scope.catalog=data.result;
+        }).error(function(data, status) {
+            console.log(status);
+            console.log(data);
+        });
+
+        BlogService.findBefore(articleId).success(function(data) {
+            console.log(data);
+            $scope.beforeArticles=data.list;
+        }).error(function(data, status) {
+            console.log(status);
+            console.log(data);
+        });
+        BlogService.findAfter(articleId).success(function(data) {
+            console.log(data);
+            $scope.afterArticles=data.list;
+        }).error(function(data, status) {
+            console.log(status);
+            console.log(data);
+        });
 
     }
 ]);
 
 
 
-appControllers.controller("navaCtroller", function ($scope, $state, $rootScope) {
+appControllers.controller("navaCtroller", function ($scope, $state, $rootScope,BlogService) {
 
-    $scope.catalogs = [{'name':"index",'title':'首页'},{'catalog':"java",'title':'JAVA'}, {'catalog':"linux",'title':'Linux'},
-        {'catalog':"architecture",'title':'架构'},{'catalog':"life",'title':'生活'},{'catalog':"books",'title':'读书'},{'catalog':"about",'title':'关于我'}]
-    $scope.srefs=["index","java","linux","architecture","life","books","about"];
+    $rootScope.catalogs=[];
+    BlogService.findCatalogs().success(function(data) {
+        console.log(data.list);
+        $rootScope.catalogs=data.list;
+    }).error(function(data, status) {
+        console.log(status);
+        console.log(data);
+    });
 
-    $scope.selectCatalog=function(index){
-        $rootScope.catalogIndex = index;
-        if(index== 0){
-            $state.go("index");
-        }else if(index == 6 ){
-            $state.go("about");
-        }else{
-            $state.go("catalog",{"catalogName":$scope.srefs[index]});
-        }
-
-    }
-    $scope.selectAbout=function(){
-        $rootScope.catalogIndex = 6;
-        $state.go("about");
-    }
 })

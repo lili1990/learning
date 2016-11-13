@@ -3,31 +3,31 @@
 
 
     <h2 class="about_h">
-        您现在的位置是：<a href="/">首页</a>><a href="1/">慢生活</a>
+        您现在的位置是：<a href="/">首页</a>><a href="1/">{{catalog.title}}</a>
     </h2>
     <div class="bloglist">
 
-        <div class="newblog" ng-repeat="blog in blogs ">
+        <div class="newblog" ng-repeat="article in blogs ">
             <ul>
-                <h3><a href="/article/{{blog.id}}">{{blog.title}}</a></h3>
+                <h3><a href="#/article/{{article.id}}" target="_blank" >{{article.title}}</a></h3>
                 <div class="autor">
-                    <span>分类：【<a href="/">{{blog.catlog}}</a>】</span>
-                    <span>浏览（<a href="/">{{blog.click_count}}</a>）</span>
-                    <span>评论（<a href="/">{{blog.comment_count}}</a>）</span>
+                    <span>分类：【<a href="/">{{article.catalog}}</a>】</span>
+                    <span>浏览（<a href="/">{{article.click_count}}</a>）</span>
+                    <span>评论（<a href="/">{{article.comment_count}}</a>）</span>
                 </div>
-                <p>十一月中旬开始，排名突然下降了，网站“个人博客”关键词排名从第一页第二名滑落到100页以后了，个人博客这个关键词百度已经搜不到了，仅有google、搜狗... <a href="/" target="_blank" class="readmore">全文</a></p>
+                <p>{{article.description}}<a href="#/article/{{article.id}}" target="_blank" class="readmore">全文</a></p>
             </ul>
-            <figure><img src="{{blog.cover_img}}" ></figure>
-            <div class="dateview">{{blog.create_time|date:'yyyy-MM-dd'}}</div>
+            <figure><img src="{{article.cover_img}}" ></figure>
+            <div class="dateview">{{article.lastModifyTime|date:'yyyy-MM-dd'}}</div>
         </div>
 
     </div>
-    <div class="page">
-        <a title="Total record"><b>113</b></a><b>1</b>
-        <a href="/">2</a>
-        <a href="/">3</a>
-        <a href="/">4</a>
-        <a href="/">5</a>
-        <a href="/">&gt;</a>
-        <a href="/">&gt;&gt;</a>
-    </div>
+    <!--<div class="page">-->
+        <!--<a title="Total record"><b>113</b></a><b>1</b>-->
+        <!--<a href="/">2</a>-->
+        <!--<a href="/">3</a>-->
+        <!--<a href="/">4</a>-->
+        <!--<a href="/">5</a>-->
+        <!--<a href="/">&gt;</a>-->
+        <!--<a href="/">&gt;&gt;</a>-->
+    <!--</div>-->
