@@ -74,7 +74,7 @@ CLASS_PARAM="-Djetty.webappPath=$DEPLOY_DIR/webapp app.server.Server"
 
 echo -e "Starting the $SERVER_NAME ...\c"
 nohup java $JAVA_OPTS $JAVA_MEM_OPTS $JAVA_DEBUG_OPTS $JAVA_JMX_OPTS \
-    -classpath $CONF_DIR:$LIB_DIR:$LIB_JARS \
+    -classpath $DEPLOY_DIR:$LIB_DIR:$LIB_JARS \
     -Dhome="$DEPLOY_DIR" \
     $CLASS_PARAM > $STDOUT_FILE 2>&1 &
 
