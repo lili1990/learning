@@ -5,11 +5,11 @@ cd ..
 DEPLOY_DIR=`pwd`
 CONF_DIR=$DEPLOY_DIR/conf
 
-SERVER_NAME=`sed '/application.name/!d;s/.*=//' conf/application.conf | tr -d '\r'`
-SERVER_HOST=`sed '/http.host/!d;s/.*=//' conf/application.conf | tr -d '\r'`
-SERVER_PORT=`sed '/http.port/!d;s/.*=//' conf/application.conf | tr -d '\r'`
-SERVER_JMX_PORT=`sed '/jmxport/!d;s/.*=//' conf/application.conf | tr -d '\r'`
-SERVER_DEBUG_PORT=`sed '/debugport/!d;s/.*=//' conf/application.conf | tr -d '\r'`
+SERVER_NAME=`sed '/hsbcs.application.name/!d;s/.*=//' conf/hsbcs.properties | tr -d '\r'`
+SERVER_HOST=`sed '/hsbcs.jetty.host/!d;s/.*=//' conf/hsbcs.properties | tr -d '\r'`
+SERVER_PORT=`sed '/hsbcs.jetty.port/!d;s/.*=//' conf/hsbcs.properties | tr -d '\r'`
+SERVER_JMX_PORT=`sed '/hsbcs.jmxport/!d;s/.*=//' conf/hsbcs.properties | tr -d '\r'`
+SERVER_DEBUG_PORT=`sed '/hsbcs.debugport/!d;s/.*=//' conf/hsbcs.properties | tr -d '\r'`
 export LD_LIBRARY_PATH=$DEPLOY_DIR/lib:$LD_LIBRARY_PATH
 
 if [ -z "$SERVER_NAME" ]; then
@@ -70,18 +70,18 @@ else
     JAVA_MEM_OPTS=" -server -Xms1g -Xmx1g -XX:PermSize=128m -XX:SurvivorRatio=2 -XX:+UseParallelGC "
 fi
 
-CLASS_PARAM="-Djetty.webappPath=$DEPLOY_DIR/webapp app.server.JettyServer"
+CLASS_PARAM="-Dhsbcs.jetty.webappPath=$DEPLOY_DIR/webapp com.cloudbroker.bcs.common.server.JettyServer"
 
 echo -e "Starting the $SERVER_NAME ...\c"
 nohup java $JAVA_OPTS $JAVA_MEM_OPTS $JAVA_DEBUG_OPTS $JAVA_JMX_OPTS \
     -classpath $CONF_DIR:$LIB_DIR:$LIB_JARS \
-    -Dhome="$DEPLOY_DIR" \
+    -Dhsbcs.home="$DEPLOY_DIR" \
     $CLASS_PARAM > $STDOUT_FILE 2>&1 &
 
 COUNT=0
 while [ $COUNT -lt 1 ]; do
     echo -e ".\c"
-    sleep 1
+    sleep 1 
     if [ -n "$SERVER_PORT" ]; then
         if [ "$SERVER_PROTOCOL" == "dubbo" ]; then
             if [ -n "$SERVER_HOST" ]; then
