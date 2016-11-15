@@ -5,7 +5,7 @@ cd ..
 DEPLOY_DIR=`pwd`
 CONF_DIR=$DEPLOY_DIR/conf
 
-SERVER_NAME=`sed '/hsbcs.application.name/!d;s/.*=//' conf/hsbcs.properties | tr -d '\r'`
+SERVER_NAME=`sed '/application.name/!d;s/.*=//' conf/application.conf | tr -d '\r'`
 
 if [ -z "$SERVER_NAME" ]; then
     SERVER_NAME=`hostname`
