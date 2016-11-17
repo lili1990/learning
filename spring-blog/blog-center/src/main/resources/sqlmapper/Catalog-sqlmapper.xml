@@ -5,7 +5,7 @@
 
 
     <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="Catalog">
-        insert into catalog(name,alias_name,create_time,lastmodifytime) values(#{name},#{alias_name},#{create_time},#{lastmodifytime});
+        insert into catalog(name,alias_name,create_time,lastModifyTime) values(#{name},#{alias_name},#{create_time},#{lastModifyTime});
     </insert>
 
     <select id="fetch" resultType="Catalog">
