@@ -36,6 +36,8 @@
 
 	<bean class="app.configure.SwaggerConfig" />
 
+	<bean class="app.jobs.MyBeanPostProcessor" />
+
 
 
 </beans>
