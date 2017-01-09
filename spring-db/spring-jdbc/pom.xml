@@ -15,6 +15,14 @@
     <!--<name>spring</name>-->
     <url>http://maven.apache.org</url>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${org.springframework-version}</version>
+        </dependency>
+    </dependencies>
+
 
 
 </project>
