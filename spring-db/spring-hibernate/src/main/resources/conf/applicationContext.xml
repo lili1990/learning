@@ -19,24 +19,20 @@
 	<import resource="applicationContext-dao.xml" />
 	<import resource="spring-mvc.xml" />
 
-	<bean class="app.jobs.StartUp"/>
 
-	<bean class="app.models.User"/>
 
 	<!-- 注册获取ApplicationContext -->
 	<bean class='app.context.RuntimeContext$SpringContext' factory-method='getInstance' />
 
 
-	<!-- 注册ZooKeeper客户端，工厂方法根据配置创建，全工程尽量只使用这一个，需要时注入 -->
-	<bean id="zkClient" class="app.zookeeper.curator.ZooKeeperClientFactory" factory-method="createZooKeeperClient" />
+	<!--&lt;!&ndash; 注册ZooKeeper客户端，工厂方法根据配置创建，全工程尽量只使用这一个，需要时注入 &ndash;&gt;-->
+	<!--<bean id="zkClient" class="app.zookeeper.curator.ZooKeeperClientFactory" factory-method="createZooKeeperClient" />-->
 
-	<!-- 注册ZooKeeper配置载入器，从ZooKeeper初始化配置 -->
-	<bean id="zkConfigLoader" class="app.zookeeper.ConfigureLoader" init-method="initConfgure" />
+	<!--&lt;!&ndash; 注册ZooKeeper配置载入器，从ZooKeeper初始化配置 &ndash;&gt;-->
+	<!--<bean id="zkConfigLoader" class="app.zookeeper.ConfigureLoader" init-method="initConfgure" />-->
 
 
 	<bean class="app.configure.SwaggerConfig" />
-
-	<bean class="app.jobs.MyBeanPostProcessor" />
 
 
 

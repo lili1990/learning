@@ -2,15 +2,7 @@ package app.models;
 
 import java.util.Date;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import app.listeners.BaseModelListener;
 
@@ -28,15 +20,47 @@ public class BaseModel {
 	}
 
 	public boolean isDeleted = false;// 标记是否删除
-	// @Version
-	// public long version;
-	/*
-	 * 格式化日期 TemporalType.DATE 2014-10-31 TemporalType.TIME 22:20:00
-	 * TemporalType.TIMESTAMP 2014-10-31 22:20:00
-	 */
-	@Temporal(TemporalType.TIMESTAMP)
-	public Date createTime = new Date();
-	@Temporal(TemporalType.TIMESTAMP)
-	public Date lastModifyTime = new Date();
+	 @Version
+	public long version;
 
+	public long createTime =System.currentTimeMillis();
+
+	public long lastModifyTime = System.currentTimeMillis();
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		isDeleted = deleted;
+	}
+
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
+	}
+
+	public long getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(long createTime) {
+		this.createTime = createTime;
+	}
+
+	public long getLastModifyTime() {
+		return lastModifyTime;
+	}
+
+	public void setLastModifyTime(long lastModifyTime) {
+		this.lastModifyTime = lastModifyTime;
+	}
 }

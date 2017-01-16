@@ -16,7 +16,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <org.springframework-version>4.0.0.RELEASE</org.springframework-version>
+        <org.springframework-version>4.2.3.RELEASE</org.springframework-version>
         <org.mybatis-version>3.2.6</org.mybatis-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
