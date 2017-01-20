@@ -3,11 +3,13 @@ package app.server;
 
 import app.main.Configure;
 import app.main.Logger;
+import app.utils.EnvironmentUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 
@@ -25,7 +27,7 @@ public class JettyServer {
 
     private static final String PROP_NAME_HOST = PROP_NAME__PREFIX + "host";
 
-    private static final String PROP_NAME_PORT = PROP_NAME__PREFIX + "port";
+    private static final String PROP_NAME_PORT =  "http.port";
 
     private static  int port;
 
@@ -45,6 +47,8 @@ public class JettyServer {
 
 
     public static void main(String[] args) {
+        File root = new File(EnvironmentUtil.getSystemPath());
+        Configure.init(root);
         String contextPath = System.getProperty(PROP_NAME_CONTEXT_PATH);
         if (StringUtils.isBlank(contextPath)) {
             contextPath = Configure.configuration.getProperty(PROP_NAME_CONTEXT_PATH);
@@ -57,6 +61,9 @@ public class JettyServer {
         String portString = System.getProperty(PROP_NAME_PORT);
         if (StringUtils.isBlank(portString)) {
             portString = Configure.configuration.getProperty(PROP_NAME_PORT);
+            if (StringUtils.isBlank(portString)) {
+                portString="9000";
+            }
         }
         int port = 0;
         try {
