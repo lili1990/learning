@@ -18,10 +18,8 @@
     <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
     <context:component-scan base-package="app.controller" />
 
-    <!--<bean id="adviceController" class="app.controller.AdviceController"></bean>-->
     <bean id="logAdvice" class="app.advice.LogAdvice" />
 
-    <bean id="aopService" class="app.service.AopServiceImpl"/>
     <bean id="aopServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
         <property name="proxyInterfaces">
                 <!--接口代理-->
@@ -32,7 +30,9 @@
                 <value>logAdvice</value>
             </list>
         </property>
-        <property name="target" ref="aopService"></property>
+        <property name="target" >
+            <bean class="app.service.AopServiceImpl"/>
+        </property>
     </bean>
     <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
         <!--<property name="target" ref="adviceController"></property>-->
