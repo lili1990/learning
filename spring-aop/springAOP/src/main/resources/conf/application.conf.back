@@ -1,11 +1,7 @@
 
 
 
-
-http.port=9002
-
+http.port=9000
 application.log.path=/conf/log4j.properties
-
-#zookeeper配置
 zookeeper.connectString=localhost:2181
-zookeeper.basePath=/learning
+zookeeper.basePath=/bbs

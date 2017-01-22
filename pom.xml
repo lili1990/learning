@@ -17,6 +17,8 @@
     <module>configure</module>
     <module>spring-blog</module>
     <module>spring-db</module>
+    <module>spring-aop</module>
+    <module>spring-aop</module>
   </modules>
 
 

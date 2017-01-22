@@ -1,29 +1,54 @@
 package app.db;
 
-import org.apache.poi.ss.formula.functions.T;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.PropertyAccessorFactory;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by sdlili on 17-1-9.
  */
-public class JdbCTemplate extends JdbcAccessor implements JdbcOpertions{
+public class JdbcTemplate extends JdbcAccessor implements JdbcOpertions{
 
 
 
-    public ResultSet execute(String sql, Object... params) throws SQLException {
+    public  <T> T query(String sql, Class<T> requireClass, Object... params){
+        try {
+            ResultSet rs = execute(sql,params);
+            return JdbcResultExtract.extractBean(rs,requireClass);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+    public  ResultSet execute(String sql, Object... params) throws SQLException {
         Connection conn=DBConfigure.getConnection(this.getDataSource());
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         try{
-            stmt=conn.createStatement();
+            stmt=conn.prepareStatement(sql);
+            setParams(stmt, params);
             ResultSet rs = stmt.executeQuery(sql);
             return rs;
         }catch (Exception e){
-
+            e.printStackTrace();
+            stmt.close();
+            DBConfigure.releaseConnection(conn);
         }finally {
-
+            stmt.close();
+            DBConfigure.releaseConnection(conn);
         }
-
         return null;
     }
 
@@ -40,12 +65,15 @@ public class JdbCTemplate extends JdbcAccessor implements JdbcOpertions{
             setParams(preStmt, params);
             int rows = preStmt.executeUpdate(); //执行SQL操作
             return Integer.valueOf(rows);
-        } finally {
+        } catch (Exception e){
+            e.printStackTrace();
+        }finally {
             if (preStmt != null)
                 preStmt.close();
             if (conn != null)
                 conn.close();
         }
+        return -1;
     }
 
     public static void setParams(PreparedStatement preStmt, Object... params)
@@ -63,7 +91,7 @@ public class JdbCTemplate extends JdbcAccessor implements JdbcOpertions{
             } else if (param instanceof Double) {
                 preStmt.setDouble(i, (Double) param);
             } else if (param instanceof Long) {
-                preStmt.setDouble(i, (Long) param);
+                preStmt.setLong(i, (Long) param);
             } else if (param instanceof Timestamp) {
                 preStmt.setTimestamp(i, (Timestamp) param);
             } else if (param instanceof Boolean) {
