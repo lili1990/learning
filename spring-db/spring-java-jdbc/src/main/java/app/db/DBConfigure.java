@@ -20,7 +20,6 @@ public class DBConfigure {
 
     public static Connection getConnection(DataSource dataSource) throws SQLException {
         try {
-
             return dataSource.getConnection();
         } catch (SQLException var1) {
             throw new SQLException("Could not get JDBC Connection", var1);
