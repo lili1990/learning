@@ -19,7 +19,7 @@
 
     <bean id="logAdvice" class="app.advice.LogAdvice" />
 
-    <bean id="aopServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+    <bean  class="org.springframework.aop.framework.ProxyFactoryBean">
         <property name="proxyInterfaces">
                 <!--接口代理-->
                 <value>app.service.AopService</value>
