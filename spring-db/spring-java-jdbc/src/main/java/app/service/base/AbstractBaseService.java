@@ -2,7 +2,7 @@ package app.service.base;
 
 
 import app.models.BaseModel;
-import app.db.JdbcTemplate;
+import app.db.JdbcManager;
 
 import javax.annotation.Resource;
 
@@ -13,7 +13,7 @@ public  abstract class AbstractBaseService<T extends BaseModel> implements BaseS
 
 
     @Resource
-    protected JdbcTemplate jdbcTemplate;
+    protected JdbcManager jdbcManager;
 
 
 
@@ -50,7 +50,7 @@ public  abstract class AbstractBaseService<T extends BaseModel> implements BaseS
 
     public <T extends BaseModel> T find(String sql, Class<T> requireType,Object... param) {
 
-        return (T)jdbcTemplate.query(sql,requireType,param);
+        return (T)jdbcManager.query(sql,requireType,param);
     }
 //
 //    public void update(String sql, Object... params) {

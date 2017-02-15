@@ -1,24 +1,11 @@
 package app.db;
 
-
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.PropertyAccessorFactory;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.support.DataAccessUtils;
-import org.springframework.jdbc.core.RowMapper;
-
 import java.sql.*;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
- * Created by sdlili on 17-1-9.
+ * Created by lili19289 on 2017/2/15.
  */
-public class JdbcTemplate extends JdbcAccessor implements JdbcOpertions{
-
+public class JdbcManager extends JdbcAccessor implements JdbcOpertions{
 
 
     public  <T> T query(String sql, Class<T> requireClass, Object... params){
@@ -101,5 +88,11 @@ public class JdbcTemplate extends JdbcAccessor implements JdbcOpertions{
             }
         }
     }
-
 }
+
+
+
+
+
+
+
