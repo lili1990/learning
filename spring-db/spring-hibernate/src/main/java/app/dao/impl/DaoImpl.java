@@ -24,16 +24,15 @@ import javax.annotation.Resource;
 public class DaoImpl<T extends BaseModel> implements Dao<T> {
 
     @Resource
-//    @Qualifier("sessionFactory")
     private SessionFactory sessionFactory;
 
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+//    public SessionFactory getSessionFactory() {
+//        return sessionFactory;
+//    }
+//
+//    public void setSessionFactory(SessionFactory sessionFactory) {
+//        this.sessionFactory = sessionFactory;
+//    }
 
     private Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
