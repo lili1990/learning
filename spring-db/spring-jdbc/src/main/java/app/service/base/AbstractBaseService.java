@@ -58,8 +58,7 @@ public  abstract class AbstractBaseService<T extends BaseModel> implements BaseS
     }
 
     public <T extends BaseModel> T find(String sql,Class<T> requireType, List<Object> param) {
-        RowMapper<T> rowMapper=new BeanPropertyRowMapper<T>(requireType);
-        return (T)jdbcTemplate.queryForObject(sql,rowMapper,param);
+        return (T)jdbcTemplate.queryForObject(sql,new BeanPropertyRowMapper<T>(requireType),param);
     }
 
     public <T extends BaseModel> T find(String sql, Class<T> requireType,Object... param) {

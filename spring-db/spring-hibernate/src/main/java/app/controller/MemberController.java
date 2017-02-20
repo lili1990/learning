@@ -22,7 +22,7 @@ public class MemberController {
 
     @ApiOperation(value="创建用户", notes="根据Member对象创建用户")
     @RequestMapping(value="/create", method= RequestMethod.POST)
-    public String postUser(Member member) {
+    public String postUser(@RequestBody Member member) {
         memberService.save(member);
         return "success";
     }
