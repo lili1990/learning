@@ -1,5 +1,6 @@
 package app.zookeeper.curator;
 
+import app.util.ConcurrentHashSet;
 import org.apache.commons.lang.StringUtils;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
@@ -12,7 +13,7 @@ import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.log4j.Logger;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooDefs;
-import org.eclipse.jetty.util.ConcurrentHashSet;
+
 
 
 import java.lang.reflect.Constructor;
