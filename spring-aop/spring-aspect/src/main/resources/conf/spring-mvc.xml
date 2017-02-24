@@ -17,7 +17,7 @@
     <context:component-scan base-package="app.controller" />
 
     <bean id="logAspectBean" class="app.aspect.LogAspect" />
-    <bean id="annotationLogAspectBean" class="app.aspect.AnnotationLogAspect" />
+    <!--<bean id="annotationLogAspectBean" class="app.aspect.AnnotationLogAspect" />-->
     <aop:aspectj-autoproxy/>
 
     <aop:config>

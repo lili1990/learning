@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 @RestController
 public class TestController {
 
-    @Resource(name="aopServiceProxy")
+    @Resource
     private AopService aopService;
 
     @RequestMapping(value="/test",method = RequestMethod.GET)

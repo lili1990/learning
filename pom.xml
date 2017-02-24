@@ -19,6 +19,7 @@
     <module>spring-db</module>
     <module>spring-aop</module>
     <module>spring-aop</module>
+      <module>spring-transaction</module>
   </modules>
 
 

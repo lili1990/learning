@@ -15,7 +15,7 @@ import java.util.Arrays;
  * Created by lili19289 on 2017/2/9.
  */
 @Aspect
-//@Component
+@Component
 public class AnnotationLogAspect {
 
     @Pointcut("execution(* app.controller.*.*(..))")
