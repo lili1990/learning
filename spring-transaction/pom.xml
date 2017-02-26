@@ -12,8 +12,9 @@
     <artifactId>spring-transaction</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>../spring-transactionInterceptor</module>
         <module>spring-transactionInterceptor</module>
+        <module>spring-jdbc-transactiontemplate</module>
+        <module>spring-transactionmanager</module>
     </modules>
 
 
