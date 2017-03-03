@@ -22,21 +22,23 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
+    <!--
+       Spring中常用事务类型：
+       PROPAGATION_REQUIRED 支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择。
+       PROPAGATION_SUPPORTS 支持当前事务，如果当前没有事务，就以非事务方式执行。
+       PROPAGATION_MANDATORY 支持当前事务，如果当前没有事务，就抛出异常。
+       PROPAGATION_REQUIRES_NEW 新建事务，如果当前存在事务，把当前事务挂起。
+       PROPAGATION_NOT_SUPPORTED 以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。
+       PROPAGATION_NEVER 以非事务方式执行，如果当前存在事务，则抛出异常。
+       PROPAGATION_NESTED 如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则进行与PROPAGATION_REQUIRED类似的操作。
+    -->
+
+
     <!-- 事务代理、每个Bean都有一个代理-->
-    <bean id="transactionBase" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+    <bean  class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
         <property name="transactionManager" ref="transactionManager"></property>
         <property name="transactionAttributes">
             <props>
-                <!--
-                Spring中常用事务类型：
-                PROPAGATION_REQUIRED 支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择。
-                PROPAGATION_SUPPORTS 支持当前事务，如果当前没有事务，就以非事务方式执行。
-                PROPAGATION_MANDATORY 支持当前事务，如果当前没有事务，就抛出异常。
-                PROPAGATION_REQUIRES_NEW 新建事务，如果当前存在事务，把当前事务挂起。
-                PROPAGATION_NOT_SUPPORTED 以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。
-                PROPAGATION_NEVER 以非事务方式执行，如果当前存在事务，则抛出异常。
-                PROPAGATION_NESTED 如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则进行与PROPAGATION_REQUIRED类似的操作。
-                -->
                 <prop key="*">PROPAGATION_REQUIRED</prop>
             </props>
         </property>
@@ -47,8 +49,25 @@
         <property name="target" >
                 <bean class="app.service.impl.UserServiceImpl"></bean>
         </property>
-        <!--<property name="int"-->
     </bean>
+
+    <!-- 事务代理、所有Bean共享一个代理基类
+    <bean id="transactionBase" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">
+        <property name="transactionManager" ref="transactionManager"></property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="userService" parent="transactionBase" >
+        <property name="target">
+            <bean class="app.service.impl.UserServiceImpl"/>
+        </property>
+    </bean>
+
+    -->
 
 
 
