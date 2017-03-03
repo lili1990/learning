@@ -9,10 +9,16 @@ public interface UserService {
 
     User get(long id);
 
-    public void save(String name, Integer age) throws Exception;
+    public void saveA(String name, Integer age) throws Exception;
 
-    void create(String name, Integer age) throws Exception;
+    void createA(String name, Integer age) throws Exception;
 
-    public void add(String name, Integer age) throws Exception;
+    public void addA(String name, Integer age) throws Exception;
+
+    public void saveB(String name, Integer age) throws Exception;
+
+    void createB(String name, Integer age) throws Exception;
+
+    public void addB(String name, Integer age) throws Exception;
 
 }

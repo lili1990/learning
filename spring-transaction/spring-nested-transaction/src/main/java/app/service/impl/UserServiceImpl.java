@@ -2,6 +2,7 @@ package app.service.impl;
 
 import app.models.User;
 import app.service.UserService;
+import app.service.UserServiceA;
 import app.service.base.AbstractBaseService;
 import com.sun.istack.internal.NotNull;
 import org.apache.commons.lang.NullArgumentException;
@@ -20,6 +21,9 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private UserServiceA userServiceA;
+
 
     public User get(long userId) {
         return (User) find("select * from user where id = ?",User.class,userId);
@@ -27,47 +31,54 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
     }
 
     @Transactional
-    public void save(String name, Integer age) throws Exception {
+    public void saveA(String name, Integer age) throws Exception {
+        userServiceA.updateOne(name+"1111", age);
         save("insert into user(user_name, age,password) values(?, ?,?)", name, age,"111111");
-        updateOne(name+"1111", age);
-        throw new Exception();
-    }
-
-    @Transactional
-    public void updateOne(String name,int age){
-        save("insert into user(user_name, age,password) values(?, ?,?)", name, age,"111111");
-//        System.out.print(1/0);
+        throw new RuntimeException();
     }
 
 
     @Transactional
-    public void create(String name, Integer age) throws Exception {
+    public void createA(String name, Integer age) throws Exception {
+        userServiceA.updateMember(name+"111", age);
         save("insert into user(user_name, age,password) values(?, ?,?)", name, age,"111111");
-        updateMember(name+"111", age);
-        throw new Exception();
+        throw new RuntimeException();
     }
 
-    @Transactional(propagation = Propagation.NESTED )
-    public void updateMember(String name,int age){
-        save("insert into user(user_name, age,password) values(?, ?,?)", name, age,"111111");
-//        System.out.print(1/0);
-    }
+
 
     @Transactional
-    public void add(String name, Integer age) throws Exception {
+    public void addA(String name, Integer age) throws Exception {
+        userServiceA.updateUser(name+"111",age);
         save("insert into user(user_name, age,password) values(?, ?,?)", name, age, "111111");
-        updateUser(name+"111",age);
-//        System.out.print(1/0);
-        throw new Exception();
+        throw new RuntimeException();
 
 
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW )
-    public void updateUser(String name,int age){
+    @Transactional
+    public void saveB(String name, Integer age) throws Exception {
+        userServiceA.updateOne(name+"1111", age);
         save("insert into user(user_name, age,password) values(?, ?,?)", name, age,"111111");
-//        System.out.print(1/0);
+        throw new RuntimeException();
     }
+
+
+    @Transactional
+    public void createB(String name, Integer age) throws Exception {
+        userServiceA.updateMember(name+"111", age);
+        save("insert into user(user_name, age,password) values(?, ?,?)", name, age,"111111");
+    }
+
+
+
+    @Transactional
+    public void addB(String name, Integer age) throws Exception {
+        userServiceA.updateUser(name+"111",age);
+        save("insert into user(user_name, age,password) values(?, ?,?)", name, age, "111111");
+
+    }
+
 
 
 
