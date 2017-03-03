@@ -15,6 +15,7 @@
         <module>spring-transactionInterceptor</module>
         <module>spring-jdbc-transactiontemplate</module>
         <module>spring-transactionmanager</module>
+        <module>spring-nested-transaction</module>
     </modules>
 
 
