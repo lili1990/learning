@@ -22,7 +22,7 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
-    <!-- 事务代理、所有Bean共享一个代理基类-->
+    <!-- 事务代理、每个Bean都有一个代理-->
     <bean id="transactionBase" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
         <property name="transactionManager" ref="transactionManager"></property>
         <property name="transactionAttributes">
