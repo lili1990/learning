@@ -10,25 +10,21 @@
                         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 
-	<!-- 启用注解式AOP -->
-	<aop:aspectj-autoproxy />
+
+
+	<!-- 启用spring mvc 注解 -->
+	<context:annotation-config />
+
+	<context:component-scan base-package="app.*"/>
 
 	<import resource="applicationContext-dao.xml" />
-	<import resource="spring-mvc.xml" />
 
-	<bean class="app.jobs.StartUp"/>
 
 	<!-- 注册获取ApplicationContext -->
 	<bean class='app.context.RuntimeContext$SpringContext' factory-method='getInstance' />
 
+	<bean class="app.configure.SwaggerConfig" />
 
-	<!-- 注册ZooKeeper客户端，工厂方法根据配置创建，全工程尽量只使用这一个，需要时注入 -->
-	<bean id="zkClient" class="app.zookeeper.curator.ZooKeeperClientFactory" factory-method="createZooKeeperClient" />
-
-	<!-- 注册ZooKeeper配置载入器，从ZooKeeper初始化配置 -->
-	<bean id="zkConfigLoader" class="app.zookeeper.ConfigureLoader" init-method="initConfgure" />
-
-	<bean id="zkLoader" class="app.zookeeper.curator.ZooKeeperLoader" init-method="init" />
 
 
 </beans>

@@ -21,6 +21,15 @@
         </init-param>
     </filter>
 
+    <filter>
+        <filter-name>authFilter</filter-name>
+        <filter-class>app.filter.AuthCheckFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>authFilter</filter-name>
+        <url-pattern>/user/*</url-pattern>
+    </filter-mapping>
+
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -36,7 +45,7 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
     <servlet>
-        <servlet-name>spring</servlet-name>
+        <servlet-name>spring-filter</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
@@ -46,7 +55,7 @@
     </servlet>
     <!-- 拦截匹配的请求 -->
     <servlet-mapping>
-        <servlet-name>spring</servlet-name>
+        <servlet-name>spring-filter</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
