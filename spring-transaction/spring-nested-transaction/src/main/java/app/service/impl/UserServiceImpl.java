@@ -4,12 +4,9 @@ import app.models.User;
 import app.service.UserService;
 import app.service.UserServiceA;
 import app.service.base.AbstractBaseService;
-import com.sun.istack.internal.NotNull;
-import org.apache.commons.lang.NullArgumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
