@@ -12,14 +12,13 @@
   <modules>
     <module>fms</module>
     <module>common</module>
-    <module>learning-spring</module>
     <module>spring</module>
     <module>configure</module>
     <module>spring-blog</module>
     <module>spring-db</module>
     <module>spring-aop</module>
-    <module>spring-aop</module>
-      <module>spring-transaction</module>
+    <module>spring-transaction</module>
+    <module>spring-learning</module>
   </modules>
 
 
