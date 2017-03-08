@@ -17,6 +17,7 @@ import java.io.OutputStream;
 public class AuthCheckInterceptor  implements HandlerInterceptor {
 
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object handle) throws Exception {
+        System.out.println("-------AuthCheckInterceptor-----------preHandle");
         //这里是个简单的demo ，具体逻辑需要时再处理
         String user_token = httpServletRequest.getHeader("user_token");
         if(StringUtils.isEmpty(user_token)){
@@ -37,11 +38,11 @@ public class AuthCheckInterceptor  implements HandlerInterceptor {
 
 
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
-
+        System.out.println("-------AuthCheckInterceptor-----------postHandle");
     }
 
 
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
-
+        System.out.println("-------AuthCheckInterceptor-----------afterCompletion");
     }
 }
