@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by lili19289 on 2017/3/7.
  */
-public class LogInterceptor implements HandlerInterceptor {
+public class LogInterceptor extends HandlerInterceptorAdapter {
 
     private static final Logger logger = LoggerFactory.getLogger(LogInterceptor.class);
 
@@ -20,7 +21,7 @@ public class LogInterceptor implements HandlerInterceptor {
         String host = request.getRemoteHost();
         String url = request.getRequestURI();
         String method = request.getMethod();
-        logger.debug( "-----访问方法==="+method);
+        logger.info(request.getRemoteHost()+" 访问"+method+"方法 "+ request.getRequestURI()+"------参数"+request.getParameterMap());
         return true;
     }
 
