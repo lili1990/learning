@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,20 +18,18 @@ public class LogInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        String host = request.getRemoteHost();
-        String url = request.getRequestURI();
-        String method = request.getMethod();
-        logger.debug( "-----访问方法==="+method);
+        System.out.println("-------LogInterceptor-----------preHandle");
+        logger.info(request.getRemoteHost()+" 访问"+request.getMethod()+"方法 "+ request.getRequestURI()+"------参数"+request.getParameterMap());
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
-
+        System.out.println("-------LogInterceptor-----------postHandle");
     }
 
     @Override
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
-
+        System.out.println("-------LogInterceptor-----------afterCompletion");
     }
 }

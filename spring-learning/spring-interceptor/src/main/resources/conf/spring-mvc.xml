@@ -12,14 +12,34 @@
 
     <mvc:annotation-driven />
 
+    <context:component-scan base-package="app.controller"/>
+
+    <context:component-scan base-package="app.service"/>
+
+
+    <bean class="app.configure.SwaggerConfig" />
+
+
+
+
     <!--拦截器配置-->
     <mvc:interceptors>
-        <!-- 日志拦截器 -->
+        <!-- 日志拦截器,全局拦截 -->
+        <bean class="app.interceptor.LogInterceptor"/>
+        <!--配置拦截器, 多个拦截器,顺序执行 -->
+        <!--权限校验，排除部分请求-->
         <mvc:interceptor>
-            <mvc:mapping path="/**" />
-            <mvc:exclude-mapping path="/static/**" />
-            <bean class="app.interceptor.LogInterceptor" />
+            <!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->
+            <mvc:mapping path="/**"/>
+            <!--排除部分请求，不被拦截（下面拦截的请求都是swagger的请求）-->
+            <mvc:exclude-mapping path="/swagger-ui.html*"/>
+            <mvc:exclude-mapping path="/webjars/**"/>
+            <mvc:exclude-mapping path="/configuration/ui/**"/>
+            <mvc:exclude-mapping path="/swagger-resources/**"/>
+            <mvc:exclude-mapping path="/v2/**"/>
+            <bean class="app.interceptor.AuthCheckInterceptor" />
         </mvc:interceptor>
+        <!-- 当设置多个拦截器时，先按顺序调用preHandle方法，然后逆序调用每个拦截器的postHandle和afterCompletion方法 -->
     </mvc:interceptors>
 
 

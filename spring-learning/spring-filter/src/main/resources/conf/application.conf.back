@@ -3,5 +3,3 @@
 
 http.port=9000
 application.log.path=/conf/log4j.properties
-zookeeper.connectString=localhost:2181
-zookeeper.basePath=/learning
