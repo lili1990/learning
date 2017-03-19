@@ -15,6 +15,7 @@
         <module>spring-filter</module>
         <module>spring-interceptor</module>
         <module>spring-message-source</module>
+        <module>spring-session</module>
     </modules>
 
     <properties>
