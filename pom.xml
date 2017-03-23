@@ -19,6 +19,7 @@
     <module>spring-aop</module>
     <module>spring-transaction</module>
     <module>spring-learning</module>
+      <module>java-learning</module>
   </modules>
 
 
