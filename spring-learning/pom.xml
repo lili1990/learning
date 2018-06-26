@@ -16,6 +16,8 @@
         <module>spring-interceptor</module>
         <module>spring-message-source</module>
         <module>spring-session</module>
+        <module>spring-scope</module>
+        <module>spring-factory-bean</module>
     </modules>
 
     <properties>

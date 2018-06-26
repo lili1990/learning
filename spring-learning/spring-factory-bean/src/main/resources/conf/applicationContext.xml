@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/aop
+                        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+                        http://www.springframework.org/schema/context 
+                        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+
+
+	<!-- 启用spring mvc 注解 -->
+	<context:annotation-config />
+
+
+
+	<!-- 注册获取ApplicationContext -->
+	<bean class='app.context.RuntimeContext$SpringContext' factory-method='getInstance' />
+
+	<bean class="app.configure.SwaggerConfig" />
+
+	<bean id="x1CarFactory" class="com.lili.factorybean.factory.X1CarFactory"/>
+
+	<bean id="x1Car" factory-bean="x1CarFactory"   factory-method="getCar" />
+
+
+	<bean id="x3Car" class="com.lili.factorybean.factory.X3CarFactory" factory-method="getCar"/>
+
+	<bean id="factoryController" class="com.lili.factorybean.controller.FactoryBeanController">
+		<property name="x1Car">
+			<ref bean="x1Car"></ref>
+		</property>
+		<property name="x3Car">
+			<ref bean="x3Car"></ref>
+		</property>
+	</bean>
+
+
+
+
+
+
+
+
+</beans>
