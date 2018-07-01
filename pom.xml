@@ -19,8 +19,9 @@
     <module>spring-aop</module>
     <module>spring-transaction</module>
     <module>spring-learning</module>
-      <module>java-learning</module>
-      <module>hadoop-learning</module>
+    <module>java-learning</module>
+    <module>hadoop-learning</module>
+    <module>netty-learning</module>
   </modules>
 
 
