@@ -15,6 +15,7 @@
         <module>java-thread</module>
         <module>java-collection</module>
         <module>java-nio</module>
+        <module>simple-rpc</module>
     </modules>
 
 
