@@ -18,12 +18,14 @@
         <module>spring-session</module>
         <module>spring-scope</module>
         <module>spring-factory-bean</module>
+        <module>spring-hystrix</module>
     </modules>
 
     <properties>
         <org.springframework-version>4.2.3.RELEASE</org.springframework-version>
         <org.mybatis-version>3.2.6</org.mybatis-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <hystrix.version>1.5.12</hystrix.version>
     </properties>
 
     <dependencies>
@@ -120,6 +122,7 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.7.4</version>
         </dependency>
+
     </dependencies>
 
 </project>
