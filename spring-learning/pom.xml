@@ -19,6 +19,7 @@
         <module>spring-scope</module>
         <module>spring-factory-bean</module>
         <module>spring-hystrix</module>
+        <module>spring-xsd</module>
     </modules>
 
     <properties>

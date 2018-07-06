@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="http://code.lili.com/schema/nettyrpc"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://code.lili.com/schema/nettyrpc">
+
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:import namespace="http://www.springframework.org/schema/beans"/>
+    <xsd:import namespace="http://www.springframework.org/schema/tool"/>
+
+
+    <xsd:complexType name="elementType">
+        <xsd:attribute name="host" type="xsd:string" use="optional" default="127.0.0.1">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[ The host invoke remote server. ]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="port" type="xsd:string" use="optional" default="8080">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[ The port invoke remote server. ]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+
+
+    </xsd:complexType>
+
+
+    <xsd:element name="element" type="elementType">
+         <xsd:annotation>
+            <xsd:documentation><![CDATA[ element的文档 ]]></xsd:documentation>
+        </xsd:annotation>
+     </xsd:element>
+
+</xsd:schema>
