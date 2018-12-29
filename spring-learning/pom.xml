@@ -20,6 +20,10 @@
         <module>spring-factory-bean</module>
         <module>spring-hystrix</module>
         <module>spring-xsd</module>
+        <module>spring-cache</module>
+        <module>spring-aop</module>
+        <module>spring-db</module>
+        <module>spring-transaction</module>
     </modules>
 
     <properties>

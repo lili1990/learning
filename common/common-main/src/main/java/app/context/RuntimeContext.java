@@ -72,8 +72,10 @@ public class RuntimeContext {
         /**
          * 实现ApplicationContextAware接口的context注入函数, 将其存入静态变量.
          */
+        @Override
         public void setApplicationContext(ApplicationContext applicationContext) {
-            SpringContext.applicationContext = applicationContext; // NOSONAR
+            // NOSONAR
+            SpringContext.applicationContext = applicationContext;
         }
 
         /**
@@ -111,7 +113,7 @@ public class RuntimeContext {
 
         private static void checkApplicationContext() {
             if (applicationContext == null) {
-                throw new IllegalStateException("applicaitonContext未注入,请在applicationContext.xml中定义SpringContextHandle");
+                throw new IllegalStateException("applicaitonContext未注入,请在applicationContext.xml中定义SpringContext");
             }
         }
     }
